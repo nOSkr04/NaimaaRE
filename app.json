@@ -42,6 +42,11 @@
         "foregroundImage": "./src/assets/androidlogo.png",
         "backgroundColor": "#ffffff"
       }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "fb881caa-1bd7-4960-abe0-3613ab65ff98"
+      }
     }
   }
 }
