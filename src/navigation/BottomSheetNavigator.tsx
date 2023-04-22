@@ -4,7 +4,7 @@ import RootNavigator  from "./RootNavigator";
 import { BottomSheetParamList } from "./types";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BottomSheetBackdrop, BottomSheetBackdropProps } from "@gorhom/bottom-sheet";
-import TestSheet from "../screens/sheets/TestSheet";
+import TestSheet from "../sheets/TestSheet";
 
 
 const BottomSheet = createBottomSheetNavigator<BottomSheetParamList>();

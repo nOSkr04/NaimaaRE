@@ -1,56 +1,27 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { SWRConfig } from "swr";
-import { AppState, AppStateStatus, StyleSheet } from "react-native";
-import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
+import { StyleSheet } from "react-native";
 import NavigationContainer from "./src/navigation/NavigationContainer";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-
+import { SwrProviderConfig } from "./src/provider/SwrProvider";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor, store } from "./src/store";
 export default function App() {
     return (
-      <SWRConfig
-        value={{
-          provider: () => new Map(),
-          initFocus(callback) {
-            let appState = AppState.currentState;
-
-            const handleAppStateChange = (nextAppState: AppStateStatus) => {
-              if (appState.match(/inactive|background/) && nextAppState === "active") {
-                callback();
-              }
-              appState = nextAppState;
-            };
-
-            const subscription = AppState.addEventListener("change", handleAppStateChange);
-
-            return () => {
-              subscription.remove();
-            };
-          },
-          initReconnect(callback) {
-            let isConnected = true;
-
-            const handleNetStateChange = (nextNetState: NetInfoState) => {
-              if (!isConnected && nextNetState.isConnected) {
-                callback();
-              }
-
-              isConnected = !!nextNetState.isConnected;
-            };
-
-            const unsubscribe = NetInfo.addEventListener(handleNetStateChange);
-
-            return () => {
-              unsubscribe();
-            };
-          },
-        }}>
-        <SafeAreaProvider>
-          <GestureHandlerRootView style={styles.container}>
-            <NavigationContainer />
-          </GestureHandlerRootView>
-        </SafeAreaProvider>
-      </SWRConfig>
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <SWRConfig
+        value={SwrProviderConfig}>
+            <SafeAreaProvider>
+              <GestureHandlerRootView style={styles.container}>
+                <NavigationContainer />
+              </GestureHandlerRootView>
+            </SafeAreaProvider>
+          </SWRConfig>
+        </PersistGate>
+      </Provider>
     );
 }
 
