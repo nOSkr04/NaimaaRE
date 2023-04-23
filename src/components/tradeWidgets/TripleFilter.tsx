@@ -1,20 +1,23 @@
 import { Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View, } from "react-native";
 import React, { memo } from "react";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign,Ionicons } from "@expo/vector-icons";
 import { Colors } from "../../constants/Colors";
+import { useNavigation } from "@react-navigation/native";
+
 const { width } = Dimensions.get("window");
 
 
 const TripleFilter = memo(() => {
+  const navigation = useNavigation();
   return (
     <View style={styles.root}>
-      <TouchableOpacity style={styles.categoryContainer}>
-        <Text>filter</Text>
-        <AntDesign name="down" size={12}  />
+      <TouchableOpacity onPress={() => navigation.navigate("SelectCategorySheet")} style={styles.categoryContainer}>
+        <Text style={styles.categoryText}>Категори{"  "}</Text>
+        <AntDesign color={Colors.greyText} name="down" size={8}  />
       </TouchableOpacity>
-      <TextInput placeholder="filter" style={styles.nameContainer}  />
+      <TextInput placeholder="Бараа хайх" placeholderTextColor={Colors.greyText} style={styles.nameContainer}  />
       <TouchableOpacity style={styles.iconContainer}>
-        <AntDesign name="info" size={20}  />
+        <Ionicons color={Colors.greyText} name="image" size={16} />
       </TouchableOpacity>
     </View>
   );
@@ -43,11 +46,11 @@ const styles = StyleSheet.create({
     borderColor           : Colors.border
   },
   nameContainer: {
-    width      : "65%",
-    borderWidth: 1,
-    alignItems : "center",
-    padding    : 8,
-    borderColor: Colors.border
+    width            : "65%",
+    borderWidth      : 1,
+    alignItems       : "center",
+    paddingHorizontal: 8,
+    borderColor      : Colors.border
   },
   iconContainer: {
     width                  : "10%",
@@ -57,5 +60,9 @@ const styles = StyleSheet.create({
     borderColor            : Colors.border,
     borderTopRightRadius   : 8,
     borderBottomRightRadius: 8
+  },
+  categoryText: {
+    fontSize: 10,
+    color   : Colors.greyText
   }
 });

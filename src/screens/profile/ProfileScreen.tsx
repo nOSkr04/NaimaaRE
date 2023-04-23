@@ -1,10 +1,13 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { memo } from "react";
+import { IAuth } from "../../interface/IAuth";
+import { useSelector } from "react-redux";
 
 const ProfileScreen = memo(() => {
+  const { user } = useSelector((state: { auth: IAuth }) => state.auth);
     return (
       <View>
-        <Text>ProfileScreen</Text>
+        <Text style={styles.text}>{user?.phone}</Text>
       </View>
     );
   });
@@ -13,4 +16,8 @@ const ProfileScreen = memo(() => {
 
 export { ProfileScreen };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 50
+  }
+});

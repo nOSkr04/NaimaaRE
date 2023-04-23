@@ -4,7 +4,10 @@ import RootNavigator  from "./RootNavigator";
 import { BottomSheetParamList } from "./types";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BottomSheetBackdrop, BottomSheetBackdropProps } from "@gorhom/bottom-sheet";
-import TestSheet from "../sheets/TestSheet";
+import { SelectCategorySheet } from "../sheets/SelectCategorySheet";
+import { PriceSheet } from "../sheets/PriceSheet";
+import { BasketSheet } from "../sheets/BasketSheet";
+import { PriceEditSheet } from "../sheets/PriceEditSheet";
 
 
 const BottomSheet = createBottomSheetNavigator<BottomSheetParamList>();
@@ -23,13 +26,48 @@ const BottomSheetNavigator = () => {
     <Navigator>
       <Screen component={RootNavigator} name="RootNavigator" />
       <Screen
-        component={TestSheet}
-        name="TestSheet"
+        component={SelectCategorySheet}
+        name="SelectCategorySheet"
+        options={{
+          backdropComponent: renderBackdrop,
+          snapPoints       : ["60%"],
+          index            : 1,
+          topInset         : insets.top,
+          
+        }}
+      />
+      <Screen
+        component={PriceSheet}
+        name="PriceSheet"
         options={{
           backdropComponent: renderBackdrop,
           snapPoints       : ["40%"],
           index            : 1,
           topInset         : insets.top,
+          
+        }}
+      />
+      <Screen
+        component={BasketSheet}
+        name="BasketSheet"
+        options={{
+          backdropComponent   : renderBackdrop,
+          snapPoints          : ["80%"],
+          index               : 1,
+          topInset            : insets.top,
+          enablePanDownToClose: false
+          
+        }}
+      />
+      <Screen
+        component={PriceEditSheet}
+        name="PriceEditSheet"
+        options={{
+          backdropComponent: renderBackdrop,
+          snapPoints       : ["40%"],
+          index            : 1,
+          topInset         : insets.top,
+          
           
         }}
       />

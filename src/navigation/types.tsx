@@ -6,6 +6,7 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { CompositeScreenProps, NavigatorScreenParams } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { IGoods } from "../interface/IGoods";
 
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
@@ -20,13 +21,14 @@ export type RootTabParamList = {
   ReportScreen: undefined;
   PackageScreen: undefined;
   ProfileScreen: undefined;
- 
 };
 
 export type BottomSheetParamList = {
   RootNavigator: undefined;
-  TestSheet: undefined;
- 
+  SelectCategorySheet: undefined;
+  PriceSheet: {data: IGoods| undefined};
+  PriceEditSheet: {id?: string, backPrice: number, backQuantity:number};
+  BasketSheet: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<

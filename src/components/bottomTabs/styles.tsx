@@ -5,7 +5,7 @@ import { Colors } from "../../constants/Colors";
 
 export const styles = StyleSheet.create({
   primaryBg: {
-    backgroundColor: Colors.primary
+    backgroundColor: Colors.primary,
   },
  
 });

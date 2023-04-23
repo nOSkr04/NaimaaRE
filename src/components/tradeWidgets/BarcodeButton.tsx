@@ -5,8 +5,8 @@ import { Colors } from "../../constants/Colors";
 const BarcodeButton = memo(() => {
     return (
       <TouchableOpacity style={styles.container}>
-        <Text>Filter</Text>
-        <AntDesign name="filter" size={16}  />
+        <Text style={styles.text}>Баркодоор хайх</Text>
+        <AntDesign color={Colors.greyText} name="barcode" size={16}  />
       </TouchableOpacity>
     );
   });
@@ -24,5 +24,9 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems    : "center",
         borderColor   : Colors.border
+    },
+    text: {
+      paddingLeft: 8,
+      color      : Colors.greyText
     }
 });

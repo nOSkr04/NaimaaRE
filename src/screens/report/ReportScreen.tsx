@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { memo } from "react";
+import { Colors } from "../../constants/Colors";
 
 const ReportScreen = memo(() => {
     return (
-      <View>
+      <View style={styles.container}>
         <Text>ReportScreen</Text>
       </View>
     );
@@ -13,4 +14,9 @@ const ReportScreen = memo(() => {
 
 export { ReportScreen };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex           : 1,
+    backgroundColor: Colors.primary
+  }
+});

@@ -10,7 +10,7 @@ const FilterWidgets = memo(() => {
       <View style={styles.root}>
         <BarcodeButton/>
         <TripleFilter/>
-        <MyButton title="Хайх"  />
+        <MyButton title="Бараа бүртгэх"  />
       </View>
     );
   });
