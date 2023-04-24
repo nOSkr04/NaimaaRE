@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { memo } from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Colors } from "../../constants/Colors";
@@ -7,8 +7,12 @@ const BasketButton = memo(({ value }: { value?: number }) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity onPress={() => navigation.navigate("BasketSheet")} style={styles.container}>
-      <FontAwesome color={Colors.secondaryPrimary} name="shopping-basket" size={20} />
-      {value ? <Text style={styles.text}>{value}</Text> : null}
+      <FontAwesome color={value ? Colors.secondaryPrimary : Colors.white} name="shopping-basket" size={20} />
+      {value ? (
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>{value}</Text>
+        </View>
+      ) : null}
     </TouchableOpacity>
   );
 });
@@ -30,15 +34,18 @@ const styles = StyleSheet.create({
     borderRadius   : 100,
   },
   text: {
-    fontSize         : 12,
-    position         : "absolute",
-    left             : 4,
-    top              : -5,
-    backgroundColor  : Colors.fbColor,
-    color            : Colors.white,
-    padding          : 2,
-    borderRadius     : 100,
-    fontWeight       : "bold",
-    paddingHorizontal: 5,
+    fontSize  : 12,
+    color     : Colors.white,
+    fontWeight: "bold",
+  },
+  textContainer: {
+    position       : "absolute",
+    left           : 4,
+    top            : -2,
+    borderRadius   : 100,
+    height         : 20,
+    width          : 20,
+    backgroundColor: Colors.fbColor,
+    alignItems     : "center",justifyContent : "center"
   },
 });

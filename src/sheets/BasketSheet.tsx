@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import {  StyleSheet, View } from "react-native";
 import React, { memo, useCallback } from "react";
 import { useSharedData } from "../components/shared/SharedDataHook";
 import { SheetHeader } from "../components/header/SheetHeader";
@@ -7,9 +7,11 @@ import { ProductList } from "../components/tradeWidgets/ProductList";
 import { IBasket } from "../interface/IBasket";
 import { TableHeader } from "../components/tradeWidgets/TableHeader";
 import { MyButton } from "../widgets/MyButton";
-
+import { useNavigation } from "@react-navigation/native";
 const BasketSheet = memo(() => {
+  const navigation = useNavigation();
   const { data } = useSharedData();
+  
   const renderItem = useCallback(({ item }: { item: IBasket }) => {
     if (!item.good) {
       return null;
@@ -19,15 +21,15 @@ const BasketSheet = memo(() => {
   return (
     <View style={styles.root}>
       <SheetHeader title="Сагсанд оногдсон бараа" />
-      <BottomSheetFlatList
-        ListFooterComponent={<View style={styles.footer} />}
-        ListHeaderComponent={<TableHeader />}
-        data={data}
-        keyExtractor={item => item._id}
-        renderItem={renderItem}
-      />
 
-      <MyButton styleButton={styles.button} title="Орлого авах" />
+      <BottomSheetFlatList
+          ListFooterComponent={<View style={styles.footer} />}
+          ListHeaderComponent={<TableHeader />}
+          data={data}
+          keyExtractor={item => item._id}
+          renderItem={renderItem}
+        />
+      <MyButton onPress={() => navigation.navigate("GetIncomeScreen")} styleButton={styles.button} title="Орлого авах" />
     </View>
   );
 });

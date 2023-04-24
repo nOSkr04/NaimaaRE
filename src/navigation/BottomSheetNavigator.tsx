@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomSheetNavigator } from "@th3rdwave/react-navigation-bottom-sheet";
-import RootNavigator  from "./RootNavigator";
+import RootNavigator from "./RootNavigator";
 import { BottomSheetParamList } from "./types";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BottomSheetBackdrop, BottomSheetBackdropProps } from "@gorhom/bottom-sheet";
@@ -8,7 +8,6 @@ import { SelectCategorySheet } from "../sheets/SelectCategorySheet";
 import { PriceSheet } from "../sheets/PriceSheet";
 import { BasketSheet } from "../sheets/BasketSheet";
 import { PriceEditSheet } from "../sheets/PriceEditSheet";
-
 
 const BottomSheet = createBottomSheetNavigator<BottomSheetParamList>();
 
@@ -33,7 +32,6 @@ const BottomSheetNavigator = () => {
           snapPoints       : ["60%"],
           index            : 1,
           topInset         : insets.top,
-          
         }}
       />
       <Screen
@@ -44,7 +42,6 @@ const BottomSheetNavigator = () => {
           snapPoints       : ["40%"],
           index            : 1,
           topInset         : insets.top,
-          
         }}
       />
       <Screen
@@ -55,8 +52,7 @@ const BottomSheetNavigator = () => {
           snapPoints          : ["80%"],
           index               : 1,
           topInset            : insets.top,
-          enablePanDownToClose: false
-          
+          enablePanDownToClose: false,
         }}
       />
       <Screen
@@ -67,11 +63,8 @@ const BottomSheetNavigator = () => {
           snapPoints       : ["40%"],
           index            : 1,
           topInset         : insets.top,
-          
-          
         }}
       />
-    
     </Navigator>
   );
 };

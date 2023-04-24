@@ -11,6 +11,8 @@ import { IGoods } from "../interface/IGoods";
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   LoginScreen: undefined;
+  GetIncomeScreen: undefined;
+  AddProductScreen: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<RootStackParamList, Screen>;
@@ -21,6 +23,7 @@ export type RootTabParamList = {
   ReportScreen: undefined;
   PackageScreen: undefined;
   ProfileScreen: undefined;
+ 
 };
 
 export type BottomSheetParamList = {

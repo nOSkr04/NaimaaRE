@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet,  View } from "react-native";
 import React, { memo } from "react";
 import { Image } from "expo-image";
 import { logoBlurHash } from "../../components/blurHash";
@@ -8,42 +8,39 @@ import { Colors } from "../../constants/Colors";
 import { AuthApi } from "../../apis";
 import { authLogin } from "../../store/authSlice";
 import { useDispatch } from "react-redux";
+import { MyButton } from "../../widgets/MyButton";
+import { useHeaderHeight } from "@react-navigation/elements";
+import { ErrorText } from "../../components/ErrorText";
 const LoginScreen = memo(() => {
-  const { control, handleSubmit, formState: { errors } } = useForm<ILoginData>();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    setError
+  } = useForm<ILoginData>();
   const dispatch = useDispatch();
-  const onSubmit = async(value: ILoginData) => {
+  const height = useHeaderHeight();
+  const onSubmit = async (value: ILoginData) => {
     try {
       const res = await AuthApi.login(value);
       dispatch(authLogin(res));
-    } catch(err: any) {
-      console.log(err);
+    } catch (err: any) {
+      setError("root", {
+        type: err.statusCode
+      });
     }
-    console.log(value);
   };
   return (
-    <SafeAreaView style={styles.root}>
-      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.root}>
-        <ScrollView showsVerticalScrollIndicator={false} style={styles.root}>
-          <View style={styles.formHeader}>
-            <Image contentFit="contain" placeholder={logoBlurHash} source={require("../../assets/logo.png")} style={styles.logo} transition={1000} />
-            <LoginForm control={control} errors={errors}  />
-          </View>
-          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.button}>
-            <Text style={styles.buttonTitle}>Нэвтрэх</Text>
-          </TouchableOpacity>
-          {/* <View style={styles.detailContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate("ResetPassword")} style={styles.textButton}>
-          <Text style={styles.textButtonTitle}>Нууц үг мартсан</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text onPress={() => navigation.navigate("SignUpScreen")} style={styles.textButtonTitle}>
-            Бүртгүүлэх
-          </Text>
-        </TouchableOpacity>
-      </View> */}
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+    <KeyboardAvoidingView style={styles.container} {...(Platform.OS === "ios" && { behavior: "padding" })} keyboardVerticalOffset={height}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.formHeader}>
+          <Image contentFit="contain" placeholder={logoBlurHash} source={require("../../assets/logo.png")} style={styles.logo} transition={1000} />
+        </View>
+        <LoginForm control={control} errors={errors} />
+        {errors.root?.type === 401 && <ErrorText title={"Утасны дугаар нууц үгээ зөв оруулна уу"}  />}
+      </ScrollView>
+      <MyButton onPress={handleSubmit(onSubmit)} styleButton={styles.button} title="Нэвтрэх" />
+    </KeyboardAvoidingView>
   );
 });
 
@@ -52,22 +49,20 @@ LoginScreen.displayName = "LoginScreen";
 export { LoginScreen };
 
 const styles = StyleSheet.create({
-  root: {
-    flex: 1,
+  container: {
+    flex           : 1,
+    backgroundColor: Colors.white,
+    borderRadius   : 20,
+    marginTop      : 4,
   },
+
   formHeader: {
-    alignItems: "center",
-    marginTop : 100,
+    marginVertical: 30,
+    alignSelf     : "center",
   },
   logo  : { width: 100, height: 43.4 },
   button: {
-    alignItems     : "center",
-    backgroundColor: Colors.primary,
-    padding        : 10,
-    justifyContent : "center",
+    marginHorizontal: 20,
+    bottom          : 15
   },
-  buttonTitle    : { color: Colors.white },
-  detailContainer: { marginHorizontal: 50, marginTop: 50 },
-  textButton     : { marginBottom: 20 },
-  textButtonTitle: { fontWeight: "bold" },
 });

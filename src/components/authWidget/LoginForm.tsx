@@ -1,8 +1,9 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import Entypo from "@expo/vector-icons/Entypo";
 import { Colors } from "../../constants/Colors";
-import { Control, Controller,FieldErrors } from "react-hook-form";
+import { Control, Controller, FieldErrors } from "react-hook-form";
+import { ErrorText } from "../ErrorText";
 
 export type ILoginData = {
   phone: string;
@@ -18,40 +19,54 @@ type Props = {
 };
 
 const LoginForm = memo(({ control, errors }: Props) => {
+  const [isSecure, setIsSecure] = useState(true);
   return (
-    <>
-      <View style={styles.formContainer}>
-        <Text style={styles.title}>Нэвтрэх</Text>
-        <Controller
-          control={control}
-          name="phone"
-          render={({ field: { onChange, onBlur, value } }) => (
+    <View style={styles.formContainer}>
+      <Text style={styles.title}>Нэвтрэх</Text>
+      <Controller
+        control={control}
+        name="phone"
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            keyboardType={"number-pad"}
+            onBlur={onBlur}
+            onChangeText={value => onChange(value)}
+            placeholder="Утасны дугаар"
+            placeholderTextColor={Colors.black}
+            style={styles.input}
+            value={value}
+          />
+        )}
+        rules={{ required: "Утасны дугаараа оруулна уу" }}
+      />
+      <View style={[styles.border, errors.password ? styles.danger : null]} />
+      {errors.phone && <ErrorText title={errors.phone?.message}  />}
+      <Controller
+        control={control}
+        name="password"
+        render={({ field: { onChange, onBlur, value } }) => (
+          <View style={styles.passwordContainer}>
             <TextInput
-              keyboardType={"number-pad"}
               onBlur={onBlur}
               onChangeText={value => onChange(value)}
-              placeholder="Утасны дугаар"
-              placeholderTextColor={"black"}
+              placeholder="Нууц үг"
+              placeholderTextColor={Colors.black}
+              secureTextEntry={isSecure}
               style={styles.input}
               value={value}
+            
             />
-          )}
-          rules={{ required: "Утас заавал оруулна ",  }}
-        />
-        {errors.phone && 
-          <Text> aldaa </Text>
-        }
-        <View style={styles.border} />
-        <View style={styles.passwordContainer}>
-          <TextInput placeholder="Нууц үг *" placeholderTextColor={"black"} style={styles.input} />
-          <TouchableOpacity style={styles.iconContainer}>
-            {/* <Entypo color={"black"} name={isSecure ? "eye" : "eye-with-line"} size={24} /> */}
-            <Entypo color={"black"} name="eye" size={24} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.border} />
-      </View>
-    </>
+            <TouchableOpacity onPress={() => setIsSecure(!isSecure)} style={styles.iconContainer}>
+              <Entypo color={"black"} name={!isSecure ? "eye" : "eye-with-line"} size={24} />
+            </TouchableOpacity>
+          </View>
+        )}
+        rules={{ required: "Нууц үгээ оруулна уу" }}
+      />
+      <View style={[styles.border, errors.password ? styles.danger : null]} />
+      {errors.password && <ErrorText title={errors.password?.message}  />}
+     
+    </View>
   );
 });
 
@@ -61,8 +76,7 @@ export { LoginForm };
 
 const styles = StyleSheet.create({
   formContainer: {
-    marginHorizontal: 50,
-    marginTop       : 100,
+    marginHorizontal: 20,
   },
   title: {
     fontWeight  : "bold",
@@ -72,16 +86,16 @@ const styles = StyleSheet.create({
   input: {
     flex        : 1,
     fontSize    : 16,
-    marginBottom: 20,
+    marginBottom: 6
   },
   border: {
-    borderWidth   : 1,
-    borderColor   : Colors.primary,
-    marginVertical: 5,
+    borderWidth : 1.5,
+    borderColor : Colors.primary,
+    marginBottom: 18
   },
   iconContainer: {
     position: "absolute",
-    padding : 15,
+    padding : 8,
     right   : 0,
   },
   passwordContainer: {
@@ -89,4 +103,7 @@ const styles = StyleSheet.create({
     alignItems   : "center",
     marginTop    : 10,
   },
+  danger: {
+    borderColor: Colors.danger
+  }
 });

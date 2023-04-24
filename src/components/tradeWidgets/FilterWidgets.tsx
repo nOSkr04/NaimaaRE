@@ -4,13 +4,15 @@ import { Colors } from "../../constants/Colors";
 import { BarcodeButton } from "./BarcodeButton";
 import { TripleFilter } from "./TripleFilter";
 import { MyButton } from "../../widgets/MyButton";
+import { useNavigation } from "@react-navigation/native";
 
 const FilterWidgets = memo(() => {
+  const navigation = useNavigation();
     return (
       <View style={styles.root}>
         <BarcodeButton/>
         <TripleFilter/>
-        <MyButton title="Бараа бүртгэх"  />
+        <MyButton onPress={() => navigation.navigate("AddProductScreen")} title="Бараа бүртгэх"  />
       </View>
     );
   });

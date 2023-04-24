@@ -9,25 +9,27 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./src/store";
 import { SharedDataProvider } from "./src/components/shared/SharedDataProvider";
+import { StatusBar } from "expo-status-bar";
+
 export default function App() {
-    return (
-      <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          <SWRConfig
-        value={SwrProviderConfig}>
-            <SafeAreaProvider>
-              <SharedDataProvider>
-                <GestureHandlerRootView style={styles.container}>
-                  <NavigationContainer />
-                </GestureHandlerRootView>
-              </SharedDataProvider>
-            </SafeAreaProvider>
-          </SWRConfig>
-        </PersistGate>
-      </Provider>
-    );
+  return (
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <SWRConfig value={SwrProviderConfig}>
+          <StatusBar style="light" />
+          <SafeAreaProvider>
+            <SharedDataProvider>
+              <GestureHandlerRootView style={styles.container}>
+                <NavigationContainer />
+              </GestureHandlerRootView>
+            </SharedDataProvider>
+          </SafeAreaProvider>
+        </SWRConfig>
+      </PersistGate>
+    </Provider>
+  );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, },
+  container: { flex: 1 },
 });

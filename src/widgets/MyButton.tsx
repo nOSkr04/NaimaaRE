@@ -35,7 +35,8 @@ const styles = StyleSheet.create({
         justifyContent : "center",
         padding        : 8,
         backgroundColor: Colors.primary,
-        borderRadius   : 12
+        borderRadius   : 12,
+        paddingVertical: 12
     },
     title: {
         color: Colors.white

@@ -1,0 +1,14 @@
+import { StyleSheet, } from "react-native";
+import { Colors } from "../../constants/Colors";
+
+
+
+export const styles = StyleSheet.create({
+  primaryBg: {
+    backgroundColor: Colors.primary,
+  },
+  title: {
+    color   : Colors.white,
+    fontSize: 16
+  }
+});

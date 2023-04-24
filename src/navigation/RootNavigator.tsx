@@ -8,6 +8,9 @@ import { IAuth } from "../interface/IAuth";
 import { AuthApi } from "../apis";
 import { authMe } from "../store/authSlice";
 import { useSWRToken } from "../hooks/useSWRToken";
+import { GetIncomeScreen } from "../screens/trade/income/GetIncomeScreen";
+import { getIncomeScreenOptions } from "../components/header";
+import { AddProductScreen } from "../screens/trade/AddProductScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -22,25 +25,27 @@ function RootNavigator() {
     {
       onSuccess: authData => {
         dispatch(authMe(authData));
-      }
-    }
+      },
+    },
   );
   if (isInitialLoading) {
     return null;
   }
   return (
     <Stack.Navigator>
-      <Stack.Group>
-        {user ? 
-          <Stack.Screen component={BottomTabNavigator} name="Root" options={{ headerShown: false,  }} />
-        :
-          <Stack.Screen component={LoginScreen} name="LoginScreen" options={{  }} />
-      }
-      </Stack.Group>  
+      <Stack.Group screenOptions={{ headerTitleAlign: "center" }}>
+        {user ? (
+          <>
+            <Stack.Screen component={BottomTabNavigator} name="Root" options={{ headerShown: false, }} />
+            <Stack.Screen component={GetIncomeScreen} name="GetIncomeScreen" options={getIncomeScreenOptions} />
+            <Stack.Screen component={AddProductScreen} name="AddProductScreen" options={getIncomeScreenOptions} />
+          </>
+        ) : (
+          <Stack.Screen component={LoginScreen} name="LoginScreen" options={{}} />
+        )}
+      </Stack.Group>
     </Stack.Navigator>
   );
 }
-
-
 
 export default RootNavigator;
