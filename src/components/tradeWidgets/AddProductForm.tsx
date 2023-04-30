@@ -1,43 +1,93 @@
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { memo } from "react";
 import { Control, Controller, FieldErrors, UseFormClearErrors } from "react-hook-form";
 import { MyTextInput } from "../../widgets/MyTextInput";
 import { AntDesign } from "@expo/vector-icons";
 import { Colors } from "../../constants/Colors";
+import { useNavigation } from "@react-navigation/native";
+import { ICategory } from "../../interface/ICategory";
+import * as ImagePicker from "expo-image-picker";
+import { ExpoImage } from "../../widgets/ExpoImage";
 
 export type IFormData = {
   name: string;
-  category: string;
+  category: ICategory;
   price: number;
   barCode: string;
   unit: string;
+ 
 };
 
 type Props = {
   control: Control<IFormData>;
   errors: FieldErrors<IFormData>;
   clearErrors: UseFormClearErrors<IFormData>;
+  handleSheetChanges: (index: number) => void;
+  result: string;
+  libImage: string;
+  setLibImage: React.Dispatch<React.SetStateAction<string>>
+  cameraImage: string;
+  setCameraImage: React.Dispatch<React.SetStateAction<string>>
 };
 
 const { width } = Dimensions.get("window");
 
-const AddProductForm = memo(({ control, errors, clearErrors }: Props) => {
+const AddProductForm = memo(({ control, errors, clearErrors,handleSheetChanges,result, libImage,setLibImage, cameraImage,setCameraImage }: Props) => {
+
+  const navigation = useNavigation();
+
+
+
+ 
+  const openProductImageLibrary = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert("Зургийн эрхийг нээнэ үү?");
+    }
+
+    if (status === "granted") {
+      const response = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes   : ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+      });
+      if (!response.canceled) {
+        setLibImage(response.assets[0].uri);
+        setCameraImage("");
+      }
+    }
+  };
+
+  const openCamera = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert("Камераны эрхийг нээнэ үү?");
+    }
+    if (status === "granted") {
+      const response = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+      });
+      if (!response.canceled) {
+        setCameraImage(response.assets[0].uri);
+        setLibImage("");
+      }
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Controller
         control={control}
         name="category"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <MyTextInput
-            clearErrors={clearErrors}
-            error={errors.category?.message}
-            name={"category"}
-            onBlur={onBlur}
-            onChange={onChange}
-            placeholder="Категори"
-            title="Категори"
-            value={value}
-          />
+        render={({ field: { onChange, value } }) => (
+          <>
+            <Text style={[styles.title, errors.category?.message ? styles.error : null]}>Категори</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("FormSelectCategory", { onChange: onChange, clearErrors: clearErrors })}
+              style={[styles.selectSheet, errors.category?.message ? styles.error : null]}>
+              <Text style={value ? styles.primeText : styles.selectText}>{value ? value?.name : "Категори"}</Text>
+              <AntDesign color={value ? Colors.black : Colors.greyText} name="down" size={14} />
+            </TouchableOpacity>
+          </>
         )}
         rules={{
           required: { value: true, message: "Категори" },
@@ -88,38 +138,45 @@ const AddProductForm = memo(({ control, errors, clearErrors }: Props) => {
       <Controller
         control={control}
         name="unit"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <MyTextInput
-            clearErrors={clearErrors}
-            error={errors.unit?.message}
-            keyboardType="number-pad"
-            name={"unit"}
-            onBlur={onBlur}
-            onChange={onChange}
-            placeholder="Хэмжих нэгж"
-            title="Хэмжих нэгж"
-            value={value ? value.toString() : ""}
-          />
+        render={({ field: { onChange, value } }) => (
+          <>
+            <Text style={[styles.title, errors.unit?.message ? styles.error : null]}>Хэмжих нэгж</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("FormSelectUnit", { onChange: onChange, clearErrors: clearErrors })}
+              style={[styles.selectSheet, errors.unit?.message ? styles.error : null]}>
+              <Text style={value ? styles.primeText : styles.selectText}>{value ? value : "Хэмжих нэгж"}</Text>
+              <AntDesign color={value ? Colors.black : Colors.greyText} name="down" size={14} />
+            </TouchableOpacity>
+          </>
         )}
         rules={{
-          required: { value: true, message: "Хэмжих нэгж " },
+          required: { value: true, message: "Категори" },
         }}
       />
       <View style={styles.mv8} />
       <View style={styles.photo}>
-        <TouchableOpacity style={styles.soloPhoto}>
-          <AntDesign color={Colors.black} name="camera" size={24} />
-          <Text>Зураг оруулах</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.soloPhoto}>
-          <AntDesign color={Colors.black} name="pushpino" size={24} />
-          <Text>Зураг дарах</Text>
-        </TouchableOpacity>
+        {libImage ? (
+          <ExpoImage backgroundColor={Colors.border} borderRadius={20} cacheUri={libImage} contentFit="contain" height={100} width={"49%"} />
+        ) : (
+          <TouchableOpacity onPress={openProductImageLibrary} style={styles.soloPhoto}>
+            <AntDesign color={Colors.black} name="camera" size={24} />
+            <Text>Зураг оруулах</Text>
+          </TouchableOpacity>
+        )}
+        {cameraImage ? (
+          <ExpoImage backgroundColor={Colors.border} borderRadius={20} cacheUri={cameraImage} contentFit="contain" height={100} width={"49%"} />
+        ) : (
+          <TouchableOpacity onPress={openCamera} style={styles.soloPhoto}>
+            <AntDesign color={Colors.black} name="pushpino" size={24} />
+            <Text>Зураг дарах</Text>
+          </TouchableOpacity>
+        )}
       </View>
-      <TouchableOpacity style={styles.barcode}>
+      <TouchableOpacity onPress={() => handleSheetChanges(0)} style={styles.barcode}>
         <AntDesign color={Colors.black} name="barcode" size={24} />
-        <Text>Баркод уншуулах</Text>
+        <Text> {result ? result : "Баркод уншуулах"} </Text>
       </TouchableOpacity>
+     
     </View>
   );
 });
@@ -129,8 +186,10 @@ AddProductForm.displayName = "AddProductForm";
 export { AddProductForm };
 
 const styles = StyleSheet.create({
-  container: {},
-  mv8      : {
+  container: {
+    flex: 1
+  },
+  mv8: {
     marginVertical: 8,
   },
   photo: {
@@ -154,6 +213,33 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.border,
     borderRadius   : 20,
     marginTop      : 8,
-    marginBottom   : 16
+    marginBottom   : 16,
+  },
+  selectSheet: {
+    borderWidth   : 1,
+    borderRadius  : 8,
+    borderColor   : Colors.border,
+    padding       : 8,
+    flexDirection : "row",
+    alignItems    : "center",
+    justifyContent: "space-between",
+  },
+  selectText: {
+    fontSize: 14,
+    color   : Colors.greyText,
+  },
+  primeText: {
+    fontSize: 14,
+    color   : Colors.black,
+  },
+  error: {
+    borderColor: Colors.danger,
+    color      : Colors.danger,
+  },
+  title: {
+    paddingLeft : 8,
+    marginBottom: 4,
+    fontSize    : 14,
+    fontWeight  : "500",
   },
 });

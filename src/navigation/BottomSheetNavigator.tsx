@@ -8,6 +8,8 @@ import { SelectCategorySheet } from "../sheets/SelectCategorySheet";
 import { PriceSheet } from "../sheets/PriceSheet";
 import { BasketSheet } from "../sheets/BasketSheet";
 import { PriceEditSheet } from "../sheets/PriceEditSheet";
+import { FormSelectCategory } from "../sheets/FormSelectCategory";
+import { FormSelectUnit } from "../sheets/FormSelectUnit";
 
 const BottomSheet = createBottomSheetNavigator<BottomSheetParamList>();
 
@@ -27,6 +29,26 @@ const BottomSheetNavigator = () => {
       <Screen
         component={SelectCategorySheet}
         name="SelectCategorySheet"
+        options={{
+          backdropComponent: renderBackdrop,
+          snapPoints       : ["60%"],
+          index            : 1,
+          topInset         : insets.top,
+        }}
+      />
+      <Screen
+        component={FormSelectCategory}
+        name="FormSelectCategory"
+        options={{
+          backdropComponent: renderBackdrop,
+          snapPoints       : ["60%"],
+          index            : 1,
+          topInset         : insets.top,
+        }}
+      />
+      <Screen
+        component={FormSelectUnit}
+        name="FormSelectUnit"
         options={{
           backdropComponent: renderBackdrop,
           snapPoints       : ["60%"],

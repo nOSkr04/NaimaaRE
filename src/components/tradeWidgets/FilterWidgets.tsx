@@ -1,17 +1,22 @@
 import { StyleSheet,  View } from "react-native";
-import React, { memo } from "react";
+import React, {  Dispatch, SetStateAction, memo } from "react";
 import { Colors } from "../../constants/Colors";
 import { BarcodeButton } from "./BarcodeButton";
 import { TripleFilter } from "./TripleFilter";
 import { MyButton } from "../../widgets/MyButton";
 import { useNavigation } from "@react-navigation/native";
 
-const FilterWidgets = memo(() => {
+export type SearchProps = {
+  search: string,
+   setSearch: Dispatch<SetStateAction<string>>
+}
+
+const FilterWidgets = memo(({ search, setSearch } : SearchProps) => {
   const navigation = useNavigation();
     return (
       <View style={styles.root}>
         <BarcodeButton/>
-        <TripleFilter/>
+        <TripleFilter search={search} setSearch={setSearch} />
         <MyButton onPress={() => navigation.navigate("AddProductScreen")} title="Бараа бүртгэх"  />
       </View>
     );

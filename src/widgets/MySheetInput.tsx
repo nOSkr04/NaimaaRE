@@ -1,19 +1,20 @@
-import { KeyboardTypeOptions, StyleSheet, Text, View } from "react-native";
+import { KeyboardTypeOptions, StyleSheet, Text, View, ViewStyle } from "react-native";
 import React, { memo } from "react";
 import { Colors } from "../constants/Colors";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 
 type Props = {
   placeholder: string;
-  onBlur: any;
+  onBlur?: any;
   onChange: any;
   value: string;
   title: string;
   keyboardType?: KeyboardTypeOptions | undefined;
-  error?: string
+  error?: string;
+  styleInput: ViewStyle
 };
 
-const MySheetInput = memo(({ placeholder, onBlur, onChange, value, title, keyboardType, error }: Props) => {
+const MySheetInput = memo(({ placeholder, onBlur, onChange, value, title, keyboardType, error,styleInput }: Props) => {
   return (
     <View>
       <Text style={[styles.title,error ? styles.error : null ]}>{title}</Text>
@@ -23,7 +24,7 @@ const MySheetInput = memo(({ placeholder, onBlur, onChange, value, title, keyboa
         onChangeText={value => onChange(value)}
         placeholder={placeholder}
         placeholderTextColor={Colors.greyText}
-        style={[styles.input, error ? styles.error : null]}
+        style={[styles.input, error ? styles.error : null, styleInput]}
         value={value}
       />
      

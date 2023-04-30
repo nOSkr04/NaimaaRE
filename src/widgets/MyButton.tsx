@@ -12,7 +12,7 @@ type Props ={
 
 const MyButton = memo(({ styleButton,title,textStyle, onPress,disabled }: Props) => {
     return (
-      <TouchableOpacity onPress={onPress} style={[styles.container, { ...styleButton }]}>
+      <TouchableOpacity onPress={onPress} style={[{ ...styleButton },styles.container, ]}>
         {disabled ? 
           <View>
             <Text style={[styles.title, { ...textStyle }]}>{title}</Text>

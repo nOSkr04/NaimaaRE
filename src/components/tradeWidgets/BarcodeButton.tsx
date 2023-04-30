@@ -2,9 +2,11 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import React, { memo } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { Colors } from "../../constants/Colors";
+import { useNavigation } from "@react-navigation/native";
 const BarcodeButton = memo(() => {
+  const navigation = useNavigation();
     return (
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate("BarcodeScreen")} style={styles.container}>
         <Text style={styles.text}>Баркодоор хайх</Text>
         <AntDesign color={Colors.greyText} name="barcode" size={16}  />
       </TouchableOpacity>

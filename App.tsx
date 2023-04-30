@@ -10,6 +10,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./src/store";
 import { SharedDataProvider } from "./src/components/shared/SharedDataProvider";
 import { StatusBar } from "expo-status-bar";
+import { FilteredDataProvider } from "./src/components/filtered/SharedDataProvider";
 
 export default function App() {
   return (
@@ -19,9 +20,11 @@ export default function App() {
           <StatusBar style="light" />
           <SafeAreaProvider>
             <SharedDataProvider>
-              <GestureHandlerRootView style={styles.container}>
-                <NavigationContainer />
-              </GestureHandlerRootView>
+              <FilteredDataProvider>
+                <GestureHandlerRootView style={styles.container}>
+                  <NavigationContainer />
+                </GestureHandlerRootView>
+              </FilteredDataProvider>
             </SharedDataProvider>
           </SafeAreaProvider>
         </SWRConfig>

@@ -15,16 +15,18 @@ export class Goods extends BaseModel implements IGoods {
   quantity: number;
   receipt: number;
   unit: string;
+  createdAt: string;
  
  
 
-  constructor ({ _id,barcode,bestSeller,category,createUser,drain,name,photo,price ,quantity,receipt,unit  }: IGoods) {
+  constructor ({ _id,barcode,bestSeller,category,createUser,drain,name,photo,price ,quantity,receipt,unit,createdAt  }: IGoods) {
     super();
     this._id = _id;
     this.barcode= barcode;
     this.bestSeller= bestSeller;
     this.category= category;
     this.createUser= createUser;
+    this.createdAt= createdAt;
     this.drain= drain;
     this.name= name;
     this.photo= photo;

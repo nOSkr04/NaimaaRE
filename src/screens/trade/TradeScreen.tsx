@@ -13,9 +13,10 @@ const TradeScreen = memo(() => {
       screenOptions={{
         tabBarLabelStyle    : styles.tabLabelStyle,
         tabBarStyle         : styles.tabBackground,
-        tabBarIndicatorStyle: styles.indicator
-      }}>
-      <Tab.Screen component={IncomeTab} name="IncomeTab" options={{ title: "Орлого" }}  />
+        tabBarIndicatorStyle: styles.indicator,
+      }}
+     >
+      <Tab.Screen component={IncomeTab} name="IncomeTab" options={{ title: "Орлого" }} />
       <Tab.Screen component={ExpenseTab} name="ExpenseTab" options={{ title: "Зарлага" }} />
     </Tab.Navigator>
   );
@@ -31,13 +32,13 @@ const styles = StyleSheet.create({
     lineHeight   : 18,
     textTransform: "none",
     color        : Colors.white,
-    fontWeight   : "bold"
+    fontWeight   : "bold",
   },
   tabBackground: {
     backgroundColor: Colors.primary,
   },
   indicator: {
     backgroundColor: Colors.secondaryPrimary,
-    padding        : 2
-  }
+    padding        : 2,
+  },
 });

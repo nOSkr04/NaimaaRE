@@ -1,6 +1,7 @@
 export abstract class Colors {
   static white = "#fff"
   static primary = "#175E26"
+  static transparentPrimary = "rgb(255, 255,255, 0.1)"
   static secondaryPrimary = "#FF9B05"
   // static primary = "#000"
   static border = "#cccccccc"

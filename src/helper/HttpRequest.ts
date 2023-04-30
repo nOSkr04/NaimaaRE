@@ -111,6 +111,9 @@ class HttpRequest {
   upload (api: string, data?: JSONobj) {
     return this.request(api, data || {}, { method: "POST", contentType: "multipart/form-data" });
   }
+  uploadImage (api: string, data?: JSONobj) {
+    return this.request(api, data || {}, { method: "PUT", contentType: "multipart/form-data" });
+  }
 }
 
 export default HttpRequest;
