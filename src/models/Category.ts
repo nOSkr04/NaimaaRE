@@ -1,4 +1,4 @@
-import { ICategory } from "./../interface/ICategory";
+import { ICategory } from "../interface/ICategory";
 import { BaseModel } from "./BaseModel";
 
 export class Category extends BaseModel implements ICategory {

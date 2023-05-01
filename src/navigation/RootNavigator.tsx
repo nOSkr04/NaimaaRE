@@ -13,6 +13,7 @@ import { addScreenOptions, getIncomeScreenOptions, imageBasketScreenOptions, sea
 import { AddProductScreen } from "../screens/trade/AddProductScreen";
 import { BarcodeScreen } from "../screens/trade/BarcodeScreen";
 import { ImageBasketScreen } from "../screens/trade/ImageBasketScreen";
+import { GoodDetailScreen } from "../screens/GoodDetail";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -43,6 +44,7 @@ function RootNavigator() {
             <Stack.Screen component={AddProductScreen} name="AddProductScreen" options={addScreenOptions} />
             <Stack.Screen component={BarcodeScreen} name="BarcodeScreen" options={searchBarcodeOptions} />
             <Stack.Screen component={ImageBasketScreen} name="ImageBasketScreen" options={imageBasketScreenOptions} />
+            <Stack.Screen component={GoodDetailScreen} name="GoodDetailScreen" options={{ headerShown: false }} />
           </>
         ) : (
           <Stack.Screen component={LoginScreen} name="LoginScreen" options={{}} />

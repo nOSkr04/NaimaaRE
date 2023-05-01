@@ -1,10 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import React, { memo, useCallback } from "react";
 import useSwr from "swr";
 import { CategoryApi } from "../apis";
 import { ICategory } from "../interface/ICategory";
 import { SheetHeader } from "../components/header/SheetHeader";
-import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
+import { BottomSheetFlatList, BottomSheetView } from "@gorhom/bottom-sheet";
 import { Divider } from "../widgets/Divider";
 import { useFilteredData } from "../components/filtered/SharedDataHook";
 import { useNavigation } from "@react-navigation/native";
@@ -13,16 +13,15 @@ const SelectCategorySheet = memo(() => {
   const { setData } = useFilteredData();
   const navigation = useNavigation();
   const allIn = {
-    name: "Бүгд",
-    _id : null
+    name     : "Бүгд",
+    _id      : "",
+    createdAt: "any"
   };
   const { data } = useSwr<ICategory[]>("categories", async () => {
     const res = await CategoryApi.getCategory();
     return res;
   });
-  const generateData = [
-    allIn, ...data
-  ];
+  const generateData = [allIn, ...(data || [])];
   const renderItem = useCallback(
     ({ item }: { item: ICategory }) => {
       return (
@@ -40,18 +39,18 @@ const SelectCategorySheet = memo(() => {
     },
     [navigation, setData],
   );
-
+console.log(generateData);
   return (
-    <View style={styles.container}>
+    <BottomSheetView style={styles.container}>
       <SheetHeader title={"Категори сонгох"} />
       <BottomSheetFlatList
-        data={generateData}
+        data={generateData || []}
         keyExtractor={item => item._id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         style={styles.content}
       />
-    </View>
+    </BottomSheetView>
   );
 });
 

@@ -30,5 +30,8 @@ export const goodImage = async (data: FormData, id: string) => {
   return res;
 };
 
-
+export const goodDetail = async ({ id } : {id: string}) => {
+  const res = await httpRequest.get(`/goods/${id}`);
+  return res.data;
+};
 

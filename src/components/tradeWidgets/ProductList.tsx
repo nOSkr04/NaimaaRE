@@ -34,7 +34,7 @@ const ProductList = memo(({ name, price, quantity, unit, item, edit, basketId }:
 
   return (
     <>
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate("GoodDetailScreen", { id: item._id })} style={styles.container}>
         <Text style={styles.nameContainer}>{name}</Text>
         <Text style={styles.priceContainer}>{price}</Text>
         <View style={styles.sizeContainer}>

@@ -17,6 +17,7 @@ export type RootStackParamList = {
   AddProductScreen: undefined;
   BarcodeScreen: undefined;
   ImageBasketScreen: {barcode?: string};
+  GoodDetailScreen: {id: string};
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<RootStackParamList, Screen>;
