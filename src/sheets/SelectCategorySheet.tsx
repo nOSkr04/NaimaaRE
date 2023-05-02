@@ -39,7 +39,6 @@ const SelectCategorySheet = memo(() => {
     },
     [navigation, setData],
   );
-console.log(generateData);
   return (
     <BottomSheetView style={styles.container}>
       <SheetHeader title={"Категори сонгох"} />

@@ -14,6 +14,7 @@ export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   LoginScreen: undefined;
   GetIncomeScreen: undefined;
+  GetExpenseScreen: undefined;
   AddProductScreen: undefined;
   BarcodeScreen: undefined;
   ImageBasketScreen: {barcode?: string};
@@ -36,7 +37,7 @@ export type BottomSheetParamList = {
   SelectCategorySheet:undefined
   PriceSheet: {data: IGoods| undefined};
   PriceEditSheet: {id?: string, backPrice: number, backQuantity:number};
-  BasketSheet: undefined;
+  BasketSheet: {drain: boolean};
   FormSelectCategory: {onChange: any, clearErrors: UseFormClearErrors<IFormData>;};
   FormSelectUnit: {onChange: any, clearErrors: UseFormClearErrors<IFormData>;};
 };

@@ -8,10 +8,11 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { MyButton } from "../../widgets/MyButton";
 import { format } from "date-fns";
 export type ILoanProps = {
+  name: string;
   loanName: string;
   loanPhone: string;
   loanSize: string;
-  loanDate: Date;
+  loanDate: string 
 };
 
 type Props = {
@@ -105,7 +106,7 @@ const LoanForm = memo(({ control, errors,clearErrors }: Props) => {
                 <Text style={[styles.loanTitle, errors.loanDate?.message ? styles.error : null]}>Зээл төлөх хугацаа</Text>
                 <TouchableOpacity onPress={showPicker} style={styles.loanContainer}>
                   {!value && <Text style={styles.timeTitle}>3ээл төлөх хугацаа</Text>}
-                  {value && <Text style={styles.timeTitle1}>{format(value, "yyyy-MM-dd")}</Text>}
+                  {value && <Text style={styles.timeTitle1}>{format(new Date(value), "yyyy-MM-dd")}</Text>}
                 </TouchableOpacity>
               </>
             )}
@@ -121,7 +122,7 @@ const LoanForm = memo(({ control, errors,clearErrors }: Props) => {
                       setIsPickerShow(false);
                     }
                   }}
-                  value={!value ? new Date() : value}
+                  value={value ? new Date(value) :  new Date()}
                 />
                 {Platform.OS === "ios" ? (
                   <View style={styles.datePickerRow}>

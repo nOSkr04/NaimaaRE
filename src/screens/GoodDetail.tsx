@@ -31,7 +31,6 @@ const GoodDetailScreen = memo(({ route }: Props) => {
   const renderHeader = useCallback(() => {
     return <GoodHeader data={data} scrollA={scrollA} />;
   }, [data, scrollA]);
-  console.log(userTrans);
   return (
     <Animated.FlatList
       ListHeaderComponent={renderHeader}

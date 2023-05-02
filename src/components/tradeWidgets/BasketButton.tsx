@@ -3,10 +3,10 @@ import React, { memo } from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Colors } from "../../constants/Colors";
 import { useNavigation } from "@react-navigation/native";
-const BasketButton = memo(({ value }: { value?: number }) => {
+const BasketButton = memo(({ value,drain }: { value?: number, drain?: boolean }) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("BasketSheet")} style={styles.container}>
+    <TouchableOpacity onPress={() => navigation.navigate("BasketSheet",{ drain: drain ? true : false })} style={styles.container}>
       <FontAwesome color={value ? Colors.secondaryPrimary : Colors.white} name="shopping-basket" size={20} />
       {value ? (
         <View style={styles.textContainer}>

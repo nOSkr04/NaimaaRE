@@ -16,9 +16,11 @@ type Props = {
   item: IGoods;
   edit?: boolean;
   basketId?: string;
+  drain?: boolean;
+  list?: boolean;
 };
 
-const ProductList = memo(({ name, price, quantity, unit, item, edit, basketId }: Props) => {
+const ProductList = memo(({ name, price, quantity, unit, item, edit, basketId, drain, list }: Props) => {
   const mutate = useMutate();
   const navigation = useNavigation();
   const onDelete = async (basketId?: string) => {
@@ -26,8 +28,7 @@ const ProductList = memo(({ name, price, quantity, unit, item, edit, basketId }:
       await TransactionsApi.deleteBasket(basketId || "");
     } catch (err: any) {
       console.log(err);
-    }
-     finally {
+    } finally {
       mutate("/transactions/basket");
     }
   };
@@ -41,19 +42,29 @@ const ProductList = memo(({ name, price, quantity, unit, item, edit, basketId }:
           <Text style={styles.sizeContent}>{quantity}</Text>
           <Text style={styles.sizeUnit}> {unit}</Text>
         </View>
-        {edit ? (
-          <View style={styles.rowIconContainer}>
-            <TouchableOpacity onPress={() => onDelete(basketId)} style={styles.rowIcon}>
-              <AntDesign color={Colors.white} name="minus" size={16} style={styles.deleteIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity  onPress={() => navigation.navigate("PriceEditSheet", { id: basketId, backPrice: price, backQuantity: quantity  })} style={styles.rowIcon}    >
-              <AntDesign color={Colors.white} name="edit" size={16} style={styles.editIcon} />
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <TouchableOpacity onPress={() => navigation.navigate("PriceSheet", { data: item })} style={styles.iconContainer}>
-            <AntDesign color={Colors.white} name="plus" size={16} style={styles.icon} />
-          </TouchableOpacity>
+        {!list && (
+          <>
+            {edit ? (
+              <View style={styles.rowIconContainer}>
+                <TouchableOpacity onPress={() => onDelete(basketId)} style={styles.rowIcon}>
+                  <AntDesign color={Colors.white} name="minus" size={16} style={styles.deleteIcon} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("PriceEditSheet", { id: basketId, backPrice: price, backQuantity: quantity })}
+                  style={styles.rowIcon}>
+                  <AntDesign color={Colors.white} name="edit" size={16} style={styles.editIcon} />
+                </TouchableOpacity>
+              </View>
+            ) : drain ? (
+              <TouchableOpacity onPress={() => navigation.navigate("PriceSheet", { data: item })} style={styles.iconContainer}>
+                <AntDesign color={Colors.white} name="minus" size={16} style={styles.removeIcon} />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => navigation.navigate("PriceSheet", { data: item })} style={styles.iconContainer}>
+                <AntDesign color={Colors.white} name="plus" size={16} style={styles.icon} />
+              </TouchableOpacity>
+            )}
+          </>
         )}
       </TouchableOpacity>
       <Divider custom={styles.divider} />
@@ -111,6 +122,11 @@ const styles = StyleSheet.create({
   },
   icon: {
     backgroundColor: Colors.primary,
+    padding        : 4,
+    borderRadius   : 8,
+  },
+  removeIcon: {
+    backgroundColor: Colors.danger,
     padding        : 4,
     borderRadius   : 8,
   },

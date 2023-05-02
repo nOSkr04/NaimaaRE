@@ -2,16 +2,18 @@ import { HttpRequest } from "../utils";
 
 const httpRequest = new HttpRequest();
 
-export const getGoods = async ({ barcode,category }: {barcode?: string,category?: string}) => {
+export const getGoods = async ({ category,barcode }: {barcode?: string,category?: string}) => {
+
   if(category){
-    const res = await httpRequest.get("/goods/user", { limit: 100, category: category });
+    const res = await httpRequest.get("/goods/user", { limit: 100,page: 1, category: category });
     return res.data;
   }
+  
   if(barcode){
-    const res = await httpRequest.get("/goods/user", { limit: 100, barCode: barcode });
+    const res = await httpRequest.get("/goods/user", { limit: 100,page: 1, barCode: barcode });
     return res.data;
   }
-  const res = await httpRequest.get("/goods/user", { limit: 100 });
+  const res = await httpRequest.get("/goods/user", { limit: 100,page: 1, });
   return res.data;
 };
 export const createGood = async (data: {

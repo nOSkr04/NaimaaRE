@@ -9,11 +9,12 @@ import { AuthApi } from "../apis";
 import { authMe } from "../store/authSlice";
 import { useSWRToken } from "../hooks/useSWRToken";
 import { GetIncomeScreen } from "../screens/trade/income/GetIncomeScreen";
-import { addScreenOptions, getIncomeScreenOptions, imageBasketScreenOptions, searchBarcodeOptions } from "../components/header";
+import { addScreenOptions, getExpenseScreenOptions, getIncomeScreenOptions, imageBasketScreenOptions, searchBarcodeOptions } from "../components/header";
 import { AddProductScreen } from "../screens/trade/AddProductScreen";
 import { BarcodeScreen } from "../screens/trade/BarcodeScreen";
 import { ImageBasketScreen } from "../screens/trade/ImageBasketScreen";
 import { GoodDetailScreen } from "../screens/GoodDetail";
+import { GetExpenseScreen } from "../screens/trade/expense/GetExpenseScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -41,6 +42,7 @@ function RootNavigator() {
           <>
             <Stack.Screen component={BottomTabNavigator} name="Root" options={{ headerShown: false, }} />
             <Stack.Screen component={GetIncomeScreen} name="GetIncomeScreen" options={getIncomeScreenOptions} />
+            <Stack.Screen component={GetExpenseScreen} name="GetExpenseScreen" options={getExpenseScreenOptions} />
             <Stack.Screen component={AddProductScreen} name="AddProductScreen" options={addScreenOptions} />
             <Stack.Screen component={BarcodeScreen} name="BarcodeScreen" options={searchBarcodeOptions} />
             <Stack.Screen component={ImageBasketScreen} name="ImageBasketScreen" options={imageBasketScreenOptions} />

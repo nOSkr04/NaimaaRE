@@ -11,7 +11,7 @@ import { IncomeApi } from "../../../apis";
 import { useMutate } from "../../../hooks/useMutate";
 import { useNavigation } from "@react-navigation/native";
 import {  TemplateForm } from "../../../components/tradeWidgets/TemplateForm";
-const GetIncomeScreen = memo(() => {
+const GetExpenseScreen = memo(() => {
   const height = useHeaderHeight();
   const mutate = useMutate();
   const navigation = useNavigation();
@@ -19,7 +19,7 @@ const GetIncomeScreen = memo(() => {
     control,
     handleSubmit,
     formState: { errors },
-    clearErrors
+    clearErrors,
   } = useForm<ILoanProps>();
 
   const [type, setType] = useState(1);
@@ -30,7 +30,7 @@ const GetIncomeScreen = memo(() => {
         name: values.name,
       };
       try {
-        await IncomeApi.saveTemplate(createTemplateName);
+       await IncomeApi.saveTemplate(createTemplateName);
       } catch (err) {
         console.log(err);
       } finally {
@@ -41,7 +41,7 @@ const GetIncomeScreen = memo(() => {
     }
     if (type === 1) {
       try {
-        await IncomeApi.postIncome();
+        await IncomeApi.postDrain();
       } catch (err) {
         console.log(err);
       } finally {
@@ -52,7 +52,7 @@ const GetIncomeScreen = memo(() => {
     }
     if (type === 2) {
       try {
-        await IncomeApi.postIncomeOnLine();
+        await IncomeApi.postDrainOnLine();
       } catch (err) {
         console.log(err);
       } finally {
@@ -62,7 +62,7 @@ const GetIncomeScreen = memo(() => {
       }
     }
     if (type === 3) {
-      const data = {
+      const createData = {
         incomeType: "Зээл",
         loanName  : values.loanName,
         loanPhone : values.loanPhone,
@@ -70,7 +70,7 @@ const GetIncomeScreen = memo(() => {
         loanDate  : values.loanDate,
       };
       try {
-        await IncomeApi.postLoan(data);
+        await IncomeApi.postDrainLoan(createData);
       } catch (err) {
         console.log(err);
       } finally {
@@ -80,6 +80,8 @@ const GetIncomeScreen = memo(() => {
       }
     }
   };
+
+
 
   return (
     <KeyboardAvoidingView style={styles.container} {...(Platform.OS === "ios" && { behavior: "padding" })} keyboardVerticalOffset={height}>
@@ -155,14 +157,14 @@ const GetIncomeScreen = memo(() => {
           </>
         ) : null}
       </ScrollView>
-      <MyButton onPress={handleSubmit(onSubmit)} styleButton={styles.button} title="Орлого авах" />
+      <MyButton onPress={handleSubmit(onSubmit)} styleButton={styles.button} title="Зарлага гаргах" type="danger" />
     </KeyboardAvoidingView>
   );
 });
 
-GetIncomeScreen.displayName = "GetIncomeScreen";
+GetExpenseScreen.displayName = "GetExpenseScreen";
 
-export { GetIncomeScreen };
+export { GetExpenseScreen };
 
 const styles = StyleSheet.create({
   container: {

@@ -11,6 +11,14 @@ export const getIncomeScreenOptions = {
   headerTitleStyle        : styles.title,
   fullScreenGestureEnabled: true
   };
+export const getExpenseScreenOptions = {
+  headerTitle             : "Зарлага гаргах",
+  headerLeft              : () => <HeaderBackButton />,
+  headerRight             : () => <HeaderRight />,
+  headerStyle             : styles.primaryBg,
+  headerTitleStyle        : styles.title,
+  fullScreenGestureEnabled: true
+  };
 export const addScreenOptions = {
   headerTitle             : "Бараа бүртгэх",
   headerLeft              : () => <HeaderBackButton />,

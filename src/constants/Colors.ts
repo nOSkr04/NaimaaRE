@@ -1,9 +1,9 @@
 export abstract class Colors {
   static white = "#fff"
-  // static primary = "#175E26"
+  static primary = "#175E26"
   static transparentPrimary = "rgb(255, 255,255, 0.1)"
   static secondaryPrimary = "#FF9B05"
-  static primary = "#000"
+  // static primary = "#000"
   static border = "#cccccccc"
   static greyText = "#c4c4c4"
   static black = "#000"
@@ -12,4 +12,6 @@ export abstract class Colors {
   static warning = "#F0D500"
   static grey300="#525251"
   static successGreen = "#44c282"
+  static silver = "#c0c0c0"
+  static smokeWhite = "#f5f5f5"
 }

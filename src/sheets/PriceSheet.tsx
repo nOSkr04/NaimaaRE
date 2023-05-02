@@ -15,7 +15,7 @@ type Props = NativeStackScreenProps<BottomSheetParamList, "PriceSheet">;
 const PriceSheet = memo(({ route }:Props) => {
   const mutate = useMutate();
   const navigation = useNavigation();
-  const { data } = route.params;
+  const { data, } = route.params;
   const [price, setPrice] = useState(data?.price ? data?.price : 0);
   const [size, setSize] = useState(data?.quantity ? data?.quantity : 0);
   const onSubmit = async () => {

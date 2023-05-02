@@ -7,10 +7,25 @@ type Props ={
     title?: string;
     textStyle?: TextStyle;
     onPress?: (event: GestureResponderEvent) => void
-    disabled?: boolean
+    disabled?: boolean;
+    type?: "primary" | "secondary" | "danger" | "warning" | "success"
 }
 
-const MyButton = memo(({ styleButton,title,textStyle, onPress,disabled }: Props) => {
+const MyButton = memo(({ styleButton,title,textStyle, onPress,disabled,type }: Props) => {
+  if(type === "danger"){
+    return (
+      <TouchableOpacity onPress={onPress} style={[{ ...styleButton },styles.danger, ]}>
+        {disabled ? 
+          <View>
+            <Text style={[styles.title, { ...textStyle }]}>{title}</Text>
+            <Entypo color={Colors.black} name="block" size={16}  />
+          </View>
+      :
+          <Text style={[styles.title, { ...textStyle }]}>{title}</Text>
+    }
+      </TouchableOpacity>
+    );
+  }
     return (
       <TouchableOpacity onPress={onPress} style={[{ ...styleButton },styles.container, ]}>
         {disabled ? 
@@ -35,6 +50,14 @@ const styles = StyleSheet.create({
         justifyContent : "center",
         padding        : 8,
         backgroundColor: Colors.primary,
+        borderRadius   : 12,
+        paddingVertical: 12
+    },
+    danger: {
+        alignItems     : "center",
+        justifyContent : "center",
+        padding        : 8,
+        backgroundColor: Colors.danger,
         borderRadius   : 12,
         paddingVertical: 12
     },
