@@ -33,11 +33,7 @@ const GetExpenseScreen = memo(() => {
        await IncomeApi.saveTemplate(createTemplateName);
       } catch (err) {
         console.log(err);
-      } finally {
-        mutate("/goods/user");
-        mutate("/transactions/basket");
-        navigation.navigate("Root");
-      }
+      } 
     }
     if (type === 1) {
       try {

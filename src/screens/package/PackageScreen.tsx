@@ -8,11 +8,10 @@ import { ITemplate } from "../../interface/ITemplate";
 import { TemplateContainer } from "../../components/template/TemplateContainer";
 const PackageScreen = memo(() => {
   const { user } = useSelector((state: { auth: IAuth }) => state.auth);
-  const { data, error } = useSwr<ITemplate[]>(`/templates?createUser=${user?._id}`, async () => {
+  const { data } = useSwr<ITemplate[]>(`/templates?createUser=${user?._id}`, async () => {
     const res = await TemplateApi.getTemplates(user?._id || "");
     return res;
   });
-  console.log(data,error);
   const renderItem = React.useCallback(({ item }: {item: ITemplate}) => {
     return(
       <TemplateContainer data={item} />
