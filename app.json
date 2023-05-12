@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Naimaa",
+    "name": "Smart tootsoo",
     "slug": "Naimaa-naimaa",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/ioslogo.png",
     "scheme": "myapp",
@@ -21,7 +21,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "net.naimaa",
-      "buildNumber": "1.0.0",
+      "buildNumber": "2.0.0",
       "entitlements": {
         "com.apple.developer.networking.wifi-info": true
       },
@@ -31,7 +31,7 @@
       }
     },
     "android": {
-      "versionCode": 30,
+      "versionCode": 40,
       "package": "mn.naimaa",
       "permissions": [
         "CAMERA",
