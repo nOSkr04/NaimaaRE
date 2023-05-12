@@ -10,6 +10,9 @@ import { BasketSheet } from "../sheets/BasketSheet";
 import { PriceEditSheet } from "../sheets/PriceEditSheet";
 import { FormSelectCategory } from "../sheets/FormSelectCategory";
 import { FormSelectUnit } from "../sheets/FormSelectUnit";
+import { DeleteSheet } from "../sheets/DeleteSheet";
+import { ReportMainSheet } from "../sheets/ReportMainSheet";
+import { ReportDateSheet } from "../sheets/ReportDateSheet";
 
 const BottomSheet = createBottomSheetNavigator<BottomSheetParamList>();
 
@@ -83,6 +86,36 @@ const BottomSheetNavigator = () => {
         options={{
           backdropComponent: renderBackdrop,
           snapPoints       : ["40%"],
+          index            : 1,
+          topInset         : insets.top,
+        }}
+      />
+      <Screen
+        component={DeleteSheet}
+        name="DeleteSheet"
+        options={{
+          backdropComponent: renderBackdrop,
+          snapPoints       : ["40%"],
+          index            : 1,
+          topInset         : insets.top,
+        }}
+      />
+      <Screen
+        component={ReportMainSheet}
+        name="ReportMainSheet"
+        options={{
+          backdropComponent: renderBackdrop,
+          snapPoints       : ["30%"],
+          index            : 1,
+          topInset         : insets.top,
+        }}
+      />
+      <Screen
+        component={ReportDateSheet}
+        name="ReportDateSheet"
+        options={{
+          backdropComponent: renderBackdrop,
+          snapPoints       : ["80%"],
           index            : 1,
           topInset         : insets.top,
         }}

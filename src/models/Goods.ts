@@ -4,7 +4,7 @@ import { BaseModel } from "./BaseModel";
 
 export class Goods extends BaseModel implements IGoods {
   _id: string;
-  barcode: string;
+  barCode: string;
   bestSeller: boolean;
   category: ICategory
   createUser: string
@@ -19,10 +19,10 @@ export class Goods extends BaseModel implements IGoods {
  
  
 
-  constructor ({ _id,barcode,bestSeller,category,createUser,drain,name,photo,price ,quantity,receipt,unit,createdAt  }: IGoods) {
+  constructor ({ _id,barCode,bestSeller,category,createUser,drain,name,photo,price ,quantity,receipt,unit,createdAt  }: IGoods) {
     super();
     this._id = _id;
-    this.barcode= barcode;
+    this.barCode= barCode;
     this.bestSeller= bestSeller;
     this.category= category;
     this.createUser= createUser;

@@ -27,10 +27,39 @@ export const addScreenOptions = {
   headerTitleStyle        : styles.title,
   fullScreenGestureEnabled: true
   };
+export const editScreenOptions = {
+  headerTitle             : "Бараа янзлах",
+  headerLeft              : () => <HeaderBackButton />,
+  headerRight             : () => <HeaderRight />,
+  headerStyle             : styles.primaryBg,
+  headerTitleStyle        : styles.title,
+  fullScreenGestureEnabled: true
+  };
 export const searchBarcodeOptions = {
   headerTitle             : "Баркодоор хайх",
   headerLeft              : () => <HeaderBackButton />,
   headerRight             : () => <HeaderRight />,
+  headerStyle             : styles.primaryBg,
+  headerTitleStyle        : styles.title,
+  fullScreenGestureEnabled: true
+  };
+export const goodDetailOptions = {
+  headerTitle             : "Бараа дэлгэрэнгүй",
+  headerLeft              : () => <HeaderBackButton />,
+  headerStyle             : styles.primaryBg,
+  headerTitleStyle        : styles.title,
+  fullScreenGestureEnabled: true
+  };
+export const incomeStaticOptions = {
+  headerTitle             : "Орлогын гүйлгээний жагсаалт",
+  headerLeft              : () => <HeaderBackButton />,
+  headerStyle             : styles.primaryBg,
+  headerTitleStyle        : styles.title,
+  fullScreenGestureEnabled: true
+  };
+export const outcomeStaticOptions = {
+  headerTitle             : "Зарлагын гүйлгээний жагсаалт",
+  headerLeft              : () => <HeaderBackButton />,
   headerStyle             : styles.primaryBg,
   headerTitleStyle        : styles.title,
   fullScreenGestureEnabled: true

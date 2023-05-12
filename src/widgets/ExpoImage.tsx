@@ -28,7 +28,7 @@ const ExpoImage = memo(({ uri, cacheUri,width, height,borderRadius,contentFit,ba
     <Image
       contentFit={contentFit ? contentFit : "cover"}
       placeholder={logoBlurHash}
-      source={uri ? `http://206.189.46.13/upload/${uri}` : cacheUri ? cacheUri : require("../assets/logo.png")}
+      source={uri ? `https://naimaaadmin.com/upload/${uri}` : cacheUri ? cacheUri : require("../assets/logo.png")}
       style={imageStyle()}
       transition={1000}
     />

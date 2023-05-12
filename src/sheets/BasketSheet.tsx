@@ -18,12 +18,25 @@ const BasketSheet = memo(({ route }: Props) => {
   const { drain } = route?.params;
   const navigation = useNavigation();
   const { data } = useSharedData();
-  const renderItem = useCallback(({ item }: { item: IBasket }) => {
-    if (!item.good) {
-      return null;
-    }
-    return <ProductList basketId={item._id} drain={drain} edit={true} item={item.good} name={item.good.name} price={item.price} quantity={item.quantity} />;
-  }, [drain]);
+  const renderItem = useCallback(
+    ({ item }: { item: IBasket }) => {
+      if (!item.good) {
+        return null;
+      }
+      return (
+        <ProductList
+          basketId={item._id}
+          drain={drain}
+          edit={true}
+          item={item.good}
+          name={item.good.name}
+          price={item.price}
+          quantity={item.quantity}
+        />
+      );
+    },
+    [drain],
+  );
   return (
     <View style={styles.root}>
       <SheetHeader title="Сагсанд оногдсон бараа" />

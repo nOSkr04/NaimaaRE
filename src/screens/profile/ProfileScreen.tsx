@@ -7,7 +7,7 @@ import { Colors } from "../../constants/Colors";
 import { formatDistanceToNowStrict } from "date-fns";
 import { mn } from "date-fns/locale";
 import { RowButton } from "../../widgets/RowButton";
-import { Entypo, FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Entypo,  MaterialCommunityIcons } from "@expo/vector-icons";
 import { AuthApi } from "../../apis";
 import { authLogout } from "../../store/authSlice";
 import * as Linking from "expo-linking";
@@ -37,13 +37,13 @@ const ProfileScreen = memo(() => {
           title="Холбоо барих"
         />
         <View style={styles.mt8} />
-        <RowButton icon={<FontAwesome5 color={Colors.black} name="user-edit" size={20} />} title="Нууц үг солих" />
+        {/* <RowButton icon={<FontAwesome5 color={Colors.black} name="user-edit" size={20} />} title="Нууц үг солих" />
         <View style={styles.mt8} />
         <RowButton icon={<MaterialCommunityIcons color={Colors.black} name="bank-outline" size={24} />} title="Хугацаа сунгах" />
-        <View style={styles.mt8} />
+        <View style={styles.mt8} /> */}
         <RowButton icon={<MaterialCommunityIcons color={Colors.black} name="logout" size={24} />} onPress={logout} title="Бүртгэлээс гарах" />
         <View style={styles.mt8} />
-        <RowButton icon={<FontAwesome5 color={Colors.danger} name="user-alt-slash" size={20} />} title="Бүртгэл устгах" />
+        {/* <RowButton icon={<FontAwesome5 color={Colors.danger} name="user-alt-slash" size={20} />} title="Бүртгэл устгах" /> */}
       </View>
     </ScrollView>
   );

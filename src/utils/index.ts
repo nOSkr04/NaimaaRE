@@ -3,7 +3,7 @@ import { HttpRequest as BaseHttpRequest,HttpHandler } from "../helper";
 import { authLogout } from "../store/authSlice";
 
 export class HttpRequest extends BaseHttpRequest {
-  uri = "http://206.189.46.13/api/v1";
+  uri = "https://naimaaadmin.com/api/v1";
   store = store;
   errorHandler = (statusCode: number, error: HttpHandler): void => {
     if(statusCode === 401){

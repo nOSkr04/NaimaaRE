@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 
 interface ChevronProps {
     progress: Animated.SharedValue<number>;
-    type: string
+    type?: string
   }
 
 const Chevron = memo(({ progress,type }: ChevronProps) => {

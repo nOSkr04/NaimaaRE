@@ -24,7 +24,7 @@ const MyTextInput = memo(({ placeholder, onBlur, onChange, value, title, keyboar
         onBlur={onBlur}
         onChangeText={value => {
           onChange(value);
-          clearErrors(name);
+          // clearErrors(name);
         }}
         placeholder={placeholder}
         placeholderTextColor={Colors.greyText}

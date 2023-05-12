@@ -4,13 +4,13 @@ import useSwr from "swr";
 import { FilterWidgets } from "../../components/tradeWidgets/FilterWidgets";
 import { ProductList } from "../../components/tradeWidgets/ProductList";
 import { TableHeader } from "../../components/tradeWidgets/TableHeader";
+import { BasketButton } from "../../components/tradeWidgets/BasketButton";
+import { useSharedData } from "../../components/shared/SharedDataHook";
+import { useFilteredData } from "../../components/filtered/SharedDataHook";
 import { Colors } from "../../constants/Colors";
 import { GoodsApi, TransactionsApi } from "../../apis";
 import { IGoods } from "../../interface/IGoods";
-import { BasketButton } from "../../components/tradeWidgets/BasketButton";
 import { IBasket } from "../../interface/IBasket";
-import { useSharedData } from "../../components/shared/SharedDataHook";
-import { useFilteredData } from "../../components/filtered/SharedDataHook";
 const IncomeTab = memo(() => {
   const { setData } = useSharedData();
   const { data: cate } = useFilteredData();
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     flex           : 1,
     backgroundColor: Colors.white,
     borderRadius   : 20,
-    marginTop      : 4
-  },
+    marginTop      : 4,
+    },
  
 });

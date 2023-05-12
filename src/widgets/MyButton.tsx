@@ -26,6 +26,20 @@ const MyButton = memo(({ styleButton,title,textStyle, onPress,disabled,type }: P
       </TouchableOpacity>
     );
   }
+  if(type === "secondary"){
+    return (
+      <TouchableOpacity onPress={onPress} style={[{ ...styleButton },styles.secondary, ]}>
+        {disabled ? 
+          <View>
+            <Text style={[styles.titleBlack, { ...textStyle }]}>{title}</Text>
+            <Entypo color={Colors.black} name="block" size={16}  />
+          </View>
+      :
+          <Text style={[styles.titleBlack, { ...textStyle }]}>{title}</Text>
+    }
+      </TouchableOpacity>
+    );
+  }
     return (
       <TouchableOpacity onPress={onPress} style={[{ ...styleButton },styles.container, ]}>
         {disabled ? 
@@ -61,7 +75,19 @@ const styles = StyleSheet.create({
         borderRadius   : 12,
         paddingVertical: 12
     },
+    secondary: {
+        alignItems     : "center",
+        justifyContent : "center",
+        padding        : 8,
+        borderRadius   : 12,
+        paddingVertical: 12,
+        borderWidth    : 2,
+        borderColor    : Colors.primary
+    },
     title: {
         color: Colors.white
+    },
+    titleBlack: {
+      color: Colors.black
     }
 });

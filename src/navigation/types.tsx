@@ -19,6 +19,14 @@ export type RootStackParamList = {
   BarcodeScreen: undefined;
   ImageBasketScreen: {barcode?: string};
   GoodDetailScreen: {id: string};
+  EditProductScreen: {id: string};
+  IncomeStaticScreen: undefined;
+  OutcomeStaticScreen: undefined;
+  BillDetailScreen: {bill: string, number: string, type: string, createdAt: string, finalPrice: number};
+  TransactionReport: {date1: string, date2: string, data: string[]};
+  BoughtRemainder: {date1: string, date2: string, data: string[]};
+  ProfitScreen: {date1: string, date2: string, data: string[]};
+  SalesForecastScreen: {date1: string, date2: string, data: string[]};
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<RootStackParamList, Screen>;
@@ -40,6 +48,9 @@ export type BottomSheetParamList = {
   BasketSheet: {drain: boolean};
   FormSelectCategory: {onChange: any, clearErrors: UseFormClearErrors<IFormData>;};
   FormSelectUnit: {onChange: any, clearErrors: UseFormClearErrors<IFormData>;};
+  DeleteSheet: {id: string};
+  ReportMainSheet: {type: string};
+  ReportDateSheet: {type: string};
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<

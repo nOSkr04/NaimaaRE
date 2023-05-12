@@ -12,12 +12,15 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { Colors } from "../../constants/Colors";
-import { ITransactions } from "../../interface/ITransactions";
 import { format } from "date-fns";
 
 const LIST_ITEM_HEIGHT = 60;
 
-const GoodContainer = memo(({ item }: {item: ITransactions}) => {
+type Props = {
+  item: any
+}
+
+const IncomeStaticContainer = memo(({ item }: Props) => {
   const aref = useAnimatedRef<View>();
   const open = useSharedValue(false);
   const progress = useDerivedValue(() =>
@@ -47,10 +50,11 @@ const GoodContainer = memo(({ item }: {item: ITransactions}) => {
         }}>
         <Animated.View style={[styles.container, headerStyle]}>
           <View style={styles.headerRow}>
-            <Text style={styles.title}>{item.type}</Text>
+  
+            <Text style={styles.title}>Сагсний дугаар: O{item.number && item.number.slice(2, 9)}</Text>
             <Chevron {...{ progress }} type={item.type} />
           </View>
-          <Text>{format(new Date(item.createdAt), "yyyy-MM-dd HH:mm")}</Text>
+          <Text style={styles.title}>Орлогын төрөл: {item.incomeType}</Text>
         </Animated.View>
       </TouchableOpacity>
       <Animated.View style={[styles.items, style]}>
@@ -63,12 +67,13 @@ const GoodContainer = memo(({ item }: {item: ITransactions}) => {
           ref={aref}>
           <View style={styles.contentContainer}>
             <View style={styles.contentRoot}>
-              <Text style={styles.name}>Төрөл: {item.incomeType}</Text>
-              <View style={item.type ==="Орлого"?  styles.pointsContainer : styles.pointUnSuccess}>
-                <Text style={styles.points}> {item.quantity} </Text>
-              </View>
+              <Text style={styles.name}>Нийт дүн:{" "}
+                {item.finalPrice
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                ₮</Text>
             </View>
-            <Text>Үлдэгдэл: {item.balanceGoodNumber}</Text>
+            <Text>{format(new Date(item.createdAt), "yyyy-MM-dd HH:mm")}</Text>
           </View>
         </View>
       </Animated.View>
@@ -77,9 +82,9 @@ const GoodContainer = memo(({ item }: {item: ITransactions}) => {
   );
 });
 
-GoodContainer.displayName = "GoodContainer";
+IncomeStaticContainer.displayName = "IncomeStaticContainer";
 
-export { GoodContainer };
+export { IncomeStaticContainer };
 
 const styles = StyleSheet.create({
     container: {
