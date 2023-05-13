@@ -26,7 +26,6 @@ const IncomeStaticScreen = memo(() => {
           <IncomeStaticContainer item={item}  />
         );
       },[]);
-      console.log(data);
   return (
     <FlatList data={data} keyExtractor={item => item._id} renderItem={renderItem} style={styles.root} />
   );

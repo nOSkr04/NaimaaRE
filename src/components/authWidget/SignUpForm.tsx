@@ -2,22 +2,31 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-nativ
 import React, { memo, useState } from "react";
 import Entypo from "@expo/vector-icons/Entypo";
 import { Colors } from "../../constants/Colors";
-import { Control, Controller, FieldErrors } from "react-hook-form";
+import { Control, Controller, FieldErrors, UseFormClearErrors, UseFormGetValues } from "react-hook-form";
 import { ErrorText } from "../ErrorText";
 
 export type ISignUpData = {
   phone: string;
-  firstName: string;
-  email: string;
   password: string;
+  email: string;
+  firstName: string;
+  cpassword: string
 };
 
 type Props = {
   control: Control<ISignUpData>;
-  errors: FieldErrors<ISignUpData>;
+  errors: FieldErrors<{
+    phone: string;
+    password: string;
+    email: string;
+    firstName: string;
+    cpassword: string
+  }>;
+  clearErrors: UseFormClearErrors<ISignUpData>;
+  getValues:UseFormGetValues<ISignUpData>
 };
 
-const SignUpForm = memo(({ control, errors }: Props) => {
+  const SignUpForm = memo(({ control, errors,clearErrors,getValues }: Props) => {
   const [isSecure, setIsSecure] = useState(true);
   return (
     <View style={styles.formContainer}>
@@ -25,72 +34,76 @@ const SignUpForm = memo(({ control, errors }: Props) => {
       <Controller
         control={control}
         name="phone"
-        render={({ field: { onChange, onBlur, value } }) => (
+        render={({ field: { onChange, onBlur, value,ref } }) => (
           <TextInput
             keyboardType={"number-pad"}
             onBlur={onBlur}
-            onChangeText={value => onChange(value)}
+            onChangeText={value => {onChange(value); clearErrors("phone");}}
             placeholder="Утасны дугаар"
-            placeholderTextColor={Colors.black}
+            placeholderTextColor={errors.phone ? Colors.danger : Colors.black}
+            ref={ref}
             style={styles.input}
             value={value}
           />
         )}
-        rules={{ required: "Утасны дугаараа оруулна уу" }}
+        rules={{ required: "Утасны дугаараа оруулна уу", minLength: 7 }}
       />
-      <View style={[styles.border, errors.phone ? styles.danger : null]} />
+      <View style={[styles.border, errors.password ? styles.danger : null]} />
       {errors.phone && <ErrorText title={errors.phone?.message}  />}
       <Controller
         control={control}
-        name="firstName"
-        render={({ field: { onChange, onBlur, value } }) => (
+        name="email"
+        render={({ field: { onChange, onBlur, value,ref } }) => (
           <TextInput
+            keyboardType={"email-address"}
             onBlur={onBlur}
-            onChangeText={value => onChange(value)}
-            placeholder="Нэрээ оруулна уу"
-            placeholderTextColor={Colors.black}
+            onChangeText={value => {onChange(value); clearErrors("email");}}
+            placeholder="И-мэйл хаяг"
+            placeholderTextColor={errors.email ? Colors.danger : Colors.black}
+            ref={ref}
             style={styles.input}
             value={value}
           />
         )}
-        rules={{ required: "Нэрээ оруулна уу" }}
+        rules={{ required: "И-мэйл хаягаа оруулна уу", minLength: 4 }}
+      />
+      <View style={[styles.border, errors.password ? styles.danger : null]} />
+      {errors.email && <ErrorText title={errors.email?.message}  />}
+      <Controller
+        control={control}
+        name="firstName"
+        render={({ field: { onChange, onBlur, value,ref } }) => (
+          <TextInput
+            onBlur={onBlur}
+            onChangeText={value => {onChange(value); clearErrors("firstName");}}
+            placeholder="Овог нэр"
+            placeholderTextColor={errors.email ? Colors.danger : Colors.black}
+            ref={ref}
+            style={styles.input}
+            value={value}
+          />
+        )}
+        rules={{ required: "Овог нэрээ оруулна уу", minLength: 2 }}
       />
       <View style={[styles.border, errors.firstName ? styles.danger : null]} />
       {errors.firstName && <ErrorText title={errors.firstName?.message}  />}
       <Controller
         control={control}
-        name="email"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            onBlur={onBlur}
-            onChangeText={value => onChange(value)}
-            placeholder="И мэйл хаяг оруулна уу"
-            placeholderTextColor={Colors.black}
-            style={styles.input}
-            value={value}
-          />
-        )}
-        rules={{ required: "И мэйл хаягаа оруулна уу" }}
-      />
-      <View style={[styles.border, errors.email ? styles.danger : null]} />
-      {errors.email && <ErrorText title={errors.email?.message}  />}
-      <Controller
-        control={control}
         name="password"
-        render={({ field: { onChange, onBlur, value } }) => (
+        render={({ field: { onChange, onBlur, value,ref } }) => (
           <View style={styles.passwordContainer}>
             <TextInput
               onBlur={onBlur}
-              onChangeText={value => onChange(value)}
+              onChangeText={value => {onChange(value); clearErrors("password");}}
               placeholder="Нууц үг"
-              placeholderTextColor={Colors.black}
+              placeholderTextColor={errors.password ? Colors.danger : Colors.black}
+              ref={ref}
               secureTextEntry={isSecure}
               style={styles.input}
               value={value}
-            
             />
             <TouchableOpacity onPress={() => setIsSecure(!isSecure)} style={styles.iconContainer}>
-              <Entypo color={"black"} name={!isSecure ? "eye" : "eye-with-line"} size={24} />
+              <Entypo  color={errors.password ? Colors.danger : Colors.black} name={!isSecure ? "eye" : "eye-with-line"} size={24} />
             </TouchableOpacity>
           </View>
         )}
@@ -98,6 +111,34 @@ const SignUpForm = memo(({ control, errors }: Props) => {
       />
       <View style={[styles.border, errors.password ? styles.danger : null]} />
       {errors.password && <ErrorText title={errors.password?.message}  />}
+    
+      <Controller
+        control={control}
+        name="cpassword"
+        render={({ field: { onChange, onBlur, value, ref } }) => (
+          <View style={styles.passwordContainer}>
+            <TextInput
+              onBlur={onBlur}
+              onChangeText={value => {onChange(value); clearErrors("cpassword");}}
+              placeholder="Нууц үг баталгаажуулах"
+              placeholderTextColor={errors.password ? Colors.danger : Colors.black}
+              ref={ref}
+              secureTextEntry={isSecure}
+              style={styles.input}
+              value={value}
+            />
+            <TouchableOpacity onPress={() => setIsSecure(!isSecure)} style={styles.iconContainer}>
+              <Entypo  color={errors.cpassword ? Colors.danger : Colors.black} name={!isSecure ? "eye" : "eye-with-line"} size={24} />
+            </TouchableOpacity>
+          </View>
+        )}
+        rules={{ validate: (value) => {
+          const { password } = getValues();
+          return password === value || "Нууц үг тохирсонгүй";
+        }   }}
+      />
+      <View style={[styles.border, errors.cpassword ? styles.danger : null]} />
+      {errors.cpassword && <ErrorText title={errors.cpassword?.message}  />}
      
     </View>
   );
@@ -122,9 +163,10 @@ const styles = StyleSheet.create({
     marginBottom: 6
   },
   border: {
-    borderWidth : 1.5,
-    borderColor : Colors.primary,
-    marginBottom: 18
+    backgroundColor: Colors.primary,
+    marginBottom   : 18,
+    height         : 4,
+    marginTop      : 4
   },
   iconContainer: {
     position: "absolute",
@@ -137,6 +179,6 @@ const styles = StyleSheet.create({
     marginTop    : 10,
   },
   danger: {
-    borderColor: Colors.danger
+    backgroundColor: Colors.danger
   }
 });

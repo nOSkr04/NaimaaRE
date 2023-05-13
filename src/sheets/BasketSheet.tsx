@@ -11,6 +11,7 @@ import { MyButton } from "../widgets/MyButton";
 import { useNavigation } from "@react-navigation/native";
 import { BottomSheetParamList } from "../navigation/types";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { EmptyContainer } from "../components/EmptyContainer";
 
 type Props = NativeStackScreenProps<BottomSheetParamList, "BasketSheet">;
 
@@ -37,11 +38,13 @@ const BasketSheet = memo(({ route }: Props) => {
     },
     [drain],
   );
+ 
   return (
     <View style={styles.root}>
       <SheetHeader title="Сагсанд оногдсон бараа" />
 
       <BottomSheetFlatList
+        ListEmptyComponent={<EmptyContainer title="Сагсанд бараа байхгүй байна"  />}
         ListFooterComponent={<View style={styles.footer} />}
         ListHeaderComponent={<TableHeader />}
         data={data}
@@ -49,9 +52,9 @@ const BasketSheet = memo(({ route }: Props) => {
         renderItem={renderItem}
       />
       {drain ? (
-        <MyButton onPress={() => navigation.navigate("GetExpenseScreen")} styleButton={styles.button} title="Зарлага гаргах" type={"danger"} />
+        <MyButton disabled={data.length ? false : true} onPress={() => navigation.navigate("GetExpenseScreen")} styleButton={styles.button} title="Зарлага гаргах" type={"danger"} />
       ) : (
-        <MyButton onPress={() => navigation.navigate("GetIncomeScreen")} styleButton={styles.button} title="Орлого авах" />
+        <MyButton disabled={data.length ? false : true} onPress={() => navigation.navigate("GetIncomeScreen")} styleButton={styles.button} title="Орлого авах" />
       )}
     </View>
   );

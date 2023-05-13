@@ -10,7 +10,7 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { IncomeApi } from "../../../apis";
 import { useMutate } from "../../../hooks/useMutate";
 import { useNavigation } from "@react-navigation/native";
-import {  TemplateForm } from "../../../components/tradeWidgets/TemplateForm";
+import { TemplateForm } from "../../../components/tradeWidgets/TemplateForm";
 const GetIncomeScreen = memo(() => {
   const height = useHeaderHeight();
   const mutate = useMutate();
@@ -19,25 +19,17 @@ const GetIncomeScreen = memo(() => {
     control,
     handleSubmit,
     formState: { errors },
-    clearErrors
+    clearErrors,
   } = useForm<ILoanProps>();
 
   const [type, setType] = useState(1);
   const [isSave, setIsSave] = useState(false);
   const onSubmit = async (values: ILoanProps) => {
+    const createTemplateName = {
+      name: values.name,
+    };
     if (isSave) {
-      const createTemplateName = {
-        name: values.name,
-      };
-      try {
-        await IncomeApi.saveTemplate(createTemplateName);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        mutate("/goods/user");
-        mutate("/transactions/basket");
-        navigation.navigate("Root");
-      }
+      await IncomeApi.saveTemplate(createTemplateName);
     }
     if (type === 1) {
       try {
@@ -47,6 +39,7 @@ const GetIncomeScreen = memo(() => {
       } finally {
         mutate("/goods/user");
         mutate("/transactions/basket");
+        mutate("/templates");
         navigation.navigate("Root");
       }
     }
@@ -58,6 +51,7 @@ const GetIncomeScreen = memo(() => {
       } finally {
         mutate("/goods/user");
         mutate("/transactions/basket");
+        mutate("/templates");
         navigation.navigate("Root");
       }
     }
@@ -76,6 +70,7 @@ const GetIncomeScreen = memo(() => {
       } finally {
         mutate("/goods/user");
         mutate("/transactions/basket");
+        mutate("/templates");
         navigation.navigate("Root");
       }
     }

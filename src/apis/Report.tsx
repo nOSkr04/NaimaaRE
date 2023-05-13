@@ -28,7 +28,12 @@ export const getIncomeStaticDetail = async ({ id }: {id?: string}) => {
   return null;
 };
 export const getTimeReport = async (data: ReportDateFormProps) => {
-    const res = await httpRequest.get("/transactions/profit", data);
+    const res = await httpRequest.post("/transactions/profit", data);
+    return res;
+};
+
+export const getTimeCategoryReport = async (data: ReportDateFormProps, id: string) => {
+    const res = await httpRequest.post(`/transactions/profit/${id}`, data);
     return res;
 };
 

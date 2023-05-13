@@ -42,10 +42,10 @@ export type timeReportProps = {
   goodsReceipts: string[][];
 };
 
-type Props = NativeStackScreenProps<BottomSheetParamList, "ReportDateSheet">;
+type Props = NativeStackScreenProps<BottomSheetParamList, "ReportResultCategorySheet">;
 
-const ReportDateSheet = memo(({ route }: Props) => {
-  const { type } = route.params;
+const ReportResultCategorySheet = memo(({ route }: Props) => {
+  const { type, id } = route.params;
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const {
@@ -57,7 +57,7 @@ const ReportDateSheet = memo(({ route }: Props) => {
   const onSubmit = async (values: ReportDateFormProps) => {
     setLoading(true);
     try {
-      const res = await ReportApi.getTimeReport(values);
+      const res = await ReportApi.getTimeCategoryReport(values, id);
       if (type === "TransactionReport") {
         navigation.navigate("TransactionReport", {
           date1: values.date1,
@@ -106,9 +106,9 @@ const ReportDateSheet = memo(({ route }: Props) => {
   );
 });
 
-ReportDateSheet.displayName = "ReportDateSheet";
+ReportResultCategorySheet.displayName = "ReportResultCategorySheet";
 
-export { ReportDateSheet };
+export { ReportResultCategorySheet };
 
 const styles = StyleSheet.create({
   button: {
@@ -119,3 +119,7 @@ const styles = StyleSheet.create({
     flex            : 1
   },
 });
+
+
+
+// ReportResultCategorySheet

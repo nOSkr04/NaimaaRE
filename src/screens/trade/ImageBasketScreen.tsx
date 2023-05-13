@@ -9,6 +9,7 @@ import { GoodsApi } from "../../apis";
 import { IGoods } from "../../interface/IGoods";
 import { useSharedData } from "../../components/shared/SharedDataHook";
 import { BasketButton } from "../../components/tradeWidgets/BasketButton";
+import { EmptyContainer } from "../../components/EmptyContainer";
 type Props = NativeStackScreenProps<RootStackParamList, "ImageBasketScreen">;
 
 const ImageBasketScreen = memo(({ route }: Props ) => {
@@ -26,7 +27,7 @@ const ImageBasketScreen = memo(({ route }: Props ) => {
     },[barcode]);
     return (
       <>
-        <FlatList data={data} keyExtractor={item => item._id} numColumns={2} renderItem={renderItem} showsVerticalScrollIndicator={false} style={styles.contentContainer}  />
+        <FlatList ListEmptyComponent={<EmptyContainer addGood title="Та бараа бүртгээгүй байна"  />} data={data} keyExtractor={item => item._id} numColumns={2} renderItem={renderItem} showsVerticalScrollIndicator={false}  style={styles.contentContainer}  />
         { <BasketButton value={basketData?.length}  />}
       </>
     );

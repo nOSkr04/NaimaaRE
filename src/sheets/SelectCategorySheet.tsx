@@ -1,12 +1,12 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import React, { memo, useCallback } from "react";
 import useSwr from "swr";
 import { CategoryApi } from "../apis";
 import { ICategory } from "../interface/ICategory";
 import { SheetHeader } from "../components/header/SheetHeader";
 import { BottomSheetFlatList, BottomSheetView } from "@gorhom/bottom-sheet";
-import { Divider } from "../widgets/Divider";
 import { useFilteredData } from "../components/filtered/SharedDataHook";
+import { CategoryContainer } from "../components/CategoryContainer";
 import { useNavigation } from "@react-navigation/native";
 
 const SelectCategorySheet = memo(() => {
@@ -15,29 +15,25 @@ const SelectCategorySheet = memo(() => {
   const allIn = {
     name     : "Бүгд",
     _id      : "",
-    createdAt: "any"
+    createdAt: "any",
   };
   const { data } = useSwr<ICategory[]>("categories", async () => {
     const res = await CategoryApi.getCategory();
     return res;
   });
   const generateData = [allIn, ...(data || [])];
-  const renderItem = useCallback(
+  const onPress = useCallback(
     ({ item }: { item: ICategory }) => {
-      return (
-        <>
-          <TouchableOpacity
-            onPress={() => {
-              setData(item);
-              navigation.goBack();
-            }}>
-            <Text style={styles.categoryText}>{item.name}</Text>
-            <Divider custom={styles.divider} />
-          </TouchableOpacity>
-        </>
-      );
+      setData(item);
+      navigation.goBack();
     },
     [navigation, setData],
+  );
+  const renderItem = useCallback(
+    ({ item }: { item: ICategory }) => {
+      return <CategoryContainer item={item} onPress={onPress} />;
+    },
+    [onPress],
   );
   return (
     <BottomSheetView style={styles.container}>
@@ -63,14 +59,5 @@ const styles = StyleSheet.create({
   },
   content: {
     marginTop: 8,
-  },
-  categoryText: {
-    fontSize  : 14,
-    fontWeight: "500",
-    marginLeft: 20,
-  },
-  divider: {
-    marginTop   : 4,
-    marginBottom: 8,
   },
 });

@@ -43,7 +43,7 @@ export const editGood = async ({
   return res.data;
 };
 
-export const goodImage = async (data: FormData, id: string) => {
+export const goodImage = async ( id: string,data: FormData,) => {
   const res = await httpRequest.uploadImage(`/goods/${id}/upload-photo`, data as unknown as { file: Blob });
   return res;
 };

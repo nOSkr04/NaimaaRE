@@ -9,6 +9,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { IGoods } from "../interface/IGoods";
 import { UseFormClearErrors } from "react-hook-form";
 import { IFormData } from "../components/tradeWidgets/AddProductForm";
+import { ISignUpData } from "../components/authWidget/SignUpForm";
 
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
@@ -27,6 +28,12 @@ export type RootStackParamList = {
   BoughtRemainder: {date1: string, date2: string, data: string[]};
   ProfitScreen: {date1: string, date2: string, data: string[]};
   SalesForecastScreen: {date1: string, date2: string, data: string[]};
+  SignUpScreen: undefined;
+  OtpVerifyScreen: {data: ISignUpData};
+  PackageDetail: {id: string,name: string};
+  PaymentMainScreen: undefined;
+  PackageExpense: { template: string};
+  PackageIncome: { template: string};
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<RootStackParamList, Screen>;
@@ -51,6 +58,11 @@ export type BottomSheetParamList = {
   DeleteSheet: {id: string};
   ReportMainSheet: {type: string};
   ReportDateSheet: {type: string};
+  ReportCategorySheet: {type: string};
+  ReportResultCategorySheet: {id: string, type: string};
+  DeleteAccountSheet: {id: string};
+  QpaySheet: {id: string};
+  DateExtendSheet: undefined
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<

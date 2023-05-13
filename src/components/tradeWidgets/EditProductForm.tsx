@@ -1,4 +1,4 @@
-import {   StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {   Alert, Dimensions, StyleSheet, Text,TouchableOpacity,View } from "react-native";
 import React, { memo } from "react";
 import { Control, Controller, FieldErrors, UseFormClearErrors } from "react-hook-form";
 import { MyTextInput } from "../../widgets/MyTextInput";
@@ -6,8 +6,9 @@ import { AntDesign } from "@expo/vector-icons";
 import { Colors } from "../../constants/Colors";
 import { useNavigation } from "@react-navigation/native";
 import { ICategory } from "../../interface/ICategory";
-
+import * as ImagePicker from "expo-image-picker";
 import { IGoods } from "../../interface/IGoods";
+import { ExpoImage } from "../../widgets/ExpoImage";
 
 export type IFormData = {
   name: string;
@@ -30,7 +31,7 @@ type Props = {
   data?: IGoods;
 };
 
-// const { width } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
 const EditProductForm = memo((props: Props) => {
   const {
@@ -39,47 +40,47 @@ const EditProductForm = memo((props: Props) => {
     clearErrors,
     handleSheetChanges,
     result,
-    //  libImage,
-    //  setLibImage,
-    //  cameraImage,
-    //  setCameraImage,
+     libImage,
+     setLibImage,
+     cameraImage,
+     setCameraImage,
     data,
   } = props;
   const navigation = useNavigation();
 
-  // const openProductImageLibrary = async () => {
-  //   const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-  //   if (status !== "granted") {
-  //     Alert.alert("Зургийн эрхийг нээнэ үү?");
-  //   }
+  const openProductImageLibrary = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert("Зургийн эрхийг нээнэ үү?");
+    }
 
-  //   if (status === "granted") {
-  //     const response = await ImagePicker.launchImageLibraryAsync({
-  //       mediaTypes   : ImagePicker.MediaTypeOptions.Images,
-  //       allowsEditing: true,
-  //     });
-  //     if (!response.canceled) {
-  //       setLibImage(response.assets[0].uri);
-  //       setCameraImage("");
-  //     }
-  //   }
-  // };
+    if (status === "granted") {
+      const response = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes   : ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+      });
+      if (!response.canceled) {
+        setLibImage(response.assets[0].uri);
+        setCameraImage("");
+      }
+    }
+  };
 
-  // const openCamera = async () => {
-  //   const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-  //   if (status !== "granted") {
-  //     Alert.alert("Камераны эрхийг нээнэ үү?");
-  //   }
-  //   if (status === "granted") {
-  //     const response = await ImagePicker.launchCameraAsync({
-  //       allowsEditing: true,
-  //     });
-  //     if (!response.canceled) {
-  //       setCameraImage(response.assets[0].uri);
-  //       setLibImage("");
-  //     }
-  //   }
-  // };
+  const openCamera = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert("Камераны эрхийг нээнэ үү?");
+    }
+    if (status === "granted") {
+      const response = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+      });
+      if (!response.canceled) {
+        setCameraImage(response.assets[0].uri);
+        setLibImage("");
+      }
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -162,7 +163,7 @@ const EditProductForm = memo((props: Props) => {
         }}
       />
       <View style={styles.mv8} />
-      {/* <View style={styles.photo}>
+      <View style={styles.photo}>
         { libImage ? (
           <ExpoImage backgroundColor={Colors.border} borderRadius={20} cacheUri={libImage} contentFit="contain" height={100} width={"49%"} />
         ) : data?.photo ? (
@@ -183,7 +184,7 @@ const EditProductForm = memo((props: Props) => {
             <Text>Зураг дарах</Text>
           </TouchableOpacity>
         )}
-      </View> */}
+      </View>
       <TouchableOpacity onPress={() => handleSheetChanges(0)} style={styles.barcode}>
         <AntDesign color={Colors.black} name="barcode" size={24} />
         <Text> {result ? result : data?.barCode ? data.barCode : "Баркод уншуулах"} </Text>
@@ -203,20 +204,20 @@ const styles = StyleSheet.create({
   mv8: {
     marginVertical: 8,
   },
-  // photo: {
-  //   flexDirection : "row",
-  //   alignItems    : "center",
-  //   justifyContent: "space-between",
-  //   width         : width * 0.9,
-  // },
-  // soloPhoto: {
-  //   width          : "49%",
-  //   height         : 100,
-  //   backgroundColor: Colors.border,
-  //   alignItems     : "center",
-  //   justifyContent : "center",
-  //   borderRadius   : 20,
-  // },
+  photo: {
+    flexDirection : "row",
+    alignItems    : "center",
+    justifyContent: "space-between",
+    width         : width * 0.9,
+  },
+  soloPhoto: {
+    width          : "49%",
+    height         : 100,
+    backgroundColor: Colors.border,
+    alignItems     : "center",
+    justifyContent : "center",
+    borderRadius   : 20,
+  },
   barcode: {
     height         : 100,
     alignItems     : "center",

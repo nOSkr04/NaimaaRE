@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
         color         : Colors.danger,
         fontSize      : 12,
         fontWeight    : "600",
-        marginVertical: 6
+        marginVertical: 6,
+        marginRight   : 20
         
     }
 });

@@ -5,6 +5,7 @@ import { IGoods } from "../../interface/IGoods";
 import { format } from "date-fns";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { photoUtil } from "../../utils/photo";
 const { height } = Dimensions.get("window");
 
 type Props = {
@@ -21,7 +22,7 @@ const GoodHeader = memo(({ scrollA, data }: Props) => {
   return (
     <View>
       <Animated.Image
-        source={ data.photo !== "no-photo.jpg"  ? { uri: `https://naimaaadmin.com/upload/${data.photo}` } :{ uri: "https://images.pexels.com/photos/1303081/pexels-photo-1303081.jpeg?auto=compress&cs=tinysrgb&w=600" } }
+        source={ data.photo !== "no-photo.jpg"  ? { uri: photoUtil(data.photo) } :{ uri: "https://images.pexels.com/photos/1303081/pexels-photo-1303081.jpeg?auto=compress&cs=tinysrgb&w=600" } }
         style={[styles.imageStyle, { transform: [{ translateY: scrollA }] }]}
       />
       <View style={styles.contentContainer}>

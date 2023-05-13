@@ -80,29 +80,29 @@ const EditProductScreen = memo(({ route }: Props) => {
 
       await GoodsApi.editGood({ id: id, data: createData });
 
-      // if (libImage) {
-      //   const image = libImage;
-      //   const fileExt = image?.substring(image.lastIndexOf(".") + 1);
-      //   const formData = new FormData();
-      //   formData.append("file", {
-      //     uri : Platform.OS === "ios" ? image?.replace("file://", "") : image,
-      //     type: `image/${fileExt}`,
-      //     name: `new__GOOD.${fileExt}`,
-      //   });
-      //   await  GoodsApi.goodImage(formData, id);
-      // }
+      if (libImage) {
+        const image = libImage;
+        const fileExt = image?.substring(image.lastIndexOf(".") + 1);
+        const formData = new FormData();
+        formData.append("file", {
+          uri : Platform.OS === "ios" ? image?.replace("file://", "") : image,
+          type: `image/${fileExt}`,
+          name: `new__GOOD.${fileExt}`,
+        });
+        await  GoodsApi.goodImage(id,formData, );
+      }
 
-      // if (cameraImage) {
-      //   const image = cameraImage;
-      //   const fileExt = image?.substring(image.lastIndexOf(".") + 1);
-      //   const formData = new FormData();
-      //   formData.append("file", {
-      //     uri : Platform.OS === "ios" ? image?.replace("file://", "") : image,
-      //     type: `image/${fileExt}`,
-      //     name: `new__GOOD.${fileExt}`,
-      //   });
-      //    await GoodsApi.goodImage(formData, id);
-      // }
+      if (cameraImage) {
+        const image = cameraImage;
+        const fileExt = image?.substring(image.lastIndexOf(".") + 1);
+        const formData = new FormData();
+        formData.append("file", {
+          uri : Platform.OS === "ios" ? image?.replace("file://", "") : image,
+          type: `image/${fileExt}`,
+          name: `new__GOOD.${fileExt}`,
+        });
+         await GoodsApi.goodImage(id,formData, );
+      }
       
       mutate("/goods/user");
       mutate(`/goods/${id}`);

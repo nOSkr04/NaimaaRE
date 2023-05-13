@@ -15,7 +15,7 @@ const ReportMainSheet = memo(({ route }: Props) => {
     <View style={styles.container}>
       <MyButton onPress={() => navigation.navigate("ReportDateSheet", { type: type })} title="Хугацаагаар" type="secondary"  />
       <View style={styles.mv} />
-      <MyButton onPress={() => navigation.navigate("ReportDateSheet", { type: type })} title=" Категори-оор" type="secondary" />
+      <MyButton onPress={() => navigation.navigate("ReportCategorySheet", { type: type })} title=" Категори-оор" type="secondary" />
     </View>
   );
 });

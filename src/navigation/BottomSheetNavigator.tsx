@@ -13,6 +13,11 @@ import { FormSelectUnit } from "../sheets/FormSelectUnit";
 import { DeleteSheet } from "../sheets/DeleteSheet";
 import { ReportMainSheet } from "../sheets/ReportMainSheet";
 import { ReportDateSheet } from "../sheets/ReportDateSheet";
+import { DeleteAccountSheet } from "../sheets/DeleteAccountSheet";
+import { ReportCategorySheet } from "../sheets/ReportCategorySheet";
+import { ReportResultCategorySheet } from "../sheets/ReportResultCategorySheet";
+import { QpaySheet } from "../sheets/QpaySheet";
+import {  DateExtendSheet } from "../sheets/DateExtendSheet";
 
 const BottomSheet = createBottomSheetNavigator<BottomSheetParamList>();
 
@@ -120,6 +125,56 @@ const BottomSheetNavigator = () => {
           topInset         : insets.top,
         }}
       />
+      <Screen
+        component={ReportCategorySheet}
+        name="ReportCategorySheet"
+        options={{
+          backdropComponent: renderBackdrop,
+          snapPoints       : ["60%"],
+          index            : 1,
+          topInset         : insets.top,
+        }}
+      />
+      <Screen
+        component={ReportResultCategorySheet}
+        name="ReportResultCategorySheet"
+        options={{
+          backdropComponent: renderBackdrop,
+          snapPoints       : ["80%"],
+          index            : 1,
+          topInset         : insets.top,
+        }}
+      />
+      <Screen
+        component={DeleteAccountSheet}
+        name="DeleteAccountSheet"
+        options={{
+          backdropComponent: renderBackdrop,
+          snapPoints       : ["40%"],
+          index            : 1,
+          topInset         : insets.top,
+        }}
+      />
+      <Screen
+          component={QpaySheet}
+          name="QpaySheet"
+          options={{
+            backdropComponent: renderBackdrop,
+            snapPoints       : ["80%"],
+            index            : 1,
+            topInset         : insets.top,
+          }}
+        />
+      <Screen
+          component={DateExtendSheet}
+          name="DateExtendSheet"
+          options={{
+            backdropComponent: renderBackdrop,
+            snapPoints       : ["40%"],
+            index            : 1,
+            topInset         : insets.top,
+          }}
+        />
     </Navigator>
   );
 };

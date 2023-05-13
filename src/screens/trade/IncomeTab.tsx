@@ -11,6 +11,7 @@ import { Colors } from "../../constants/Colors";
 import { GoodsApi, TransactionsApi } from "../../apis";
 import { IGoods } from "../../interface/IGoods";
 import { IBasket } from "../../interface/IBasket";
+import { EmptyContainer } from "../../components/EmptyContainer";
 const IncomeTab = memo(() => {
   const { setData } = useSharedData();
   const { data: cate } = useFilteredData();
@@ -36,6 +37,7 @@ const IncomeTab = memo(() => {
   return (
     <>
       <FlatList
+      ListEmptyComponent={<EmptyContainer addGood title="Орлого авах бараа байхгүй байна" />}
       ListHeaderComponent={
         <>
           <FilterWidgets search={search} setSearch = {setSearch}   />

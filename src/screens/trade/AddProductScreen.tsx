@@ -12,6 +12,7 @@ import { MyButton } from "../../widgets/MyButton";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { useNavigation } from "@react-navigation/native";
 import { useMutate } from "../../hooks/useMutate";
+import { BigLoader } from "../../components/loader/BigLoader";
 const AddProductScreen = memo(() => {
   const height = useHeaderHeight();
   const navigation = useNavigation();
@@ -24,6 +25,7 @@ const AddProductScreen = memo(() => {
   } = useForm<IFormData>();
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   const [hasPermission, setHasPermission] = useState<null | PermissionStatus | boolean>(null);
+  const [loading, setLoading] = useState(false);
   const [result, setResult] = useState("");
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [libImage, setLibImage] = useState("");
@@ -47,48 +49,50 @@ const AddProductScreen = memo(() => {
   }, []);
 
   const onSubmit = async (values: IFormData) => {
+    setLoading(true);
     try {
       const createData = {
-        name       : values.name,
-        category   : values.category._id,
-        price      : values.price,
-        barCode    : result ? result : undefined,
-        unit       : values.unit,
-        libImage   : libImage ? libImage : undefined,
-        cameraImage: cameraImage ? cameraImage : undefined,
+        name    : values.name,
+        category: values.category._id,
+        price   : values.price,
+        barCode : result ? result : undefined,
+        unit    : values.unit,
       };
 
       const res = await GoodsApi.createGood(createData);
 
       if (libImage) {
-        const image = libImage;
-        const fileExt = image?.substring(image.lastIndexOf(".") + 1);
+        const fileExt = libImage?.substring(libImage.lastIndexOf(".") + 1);
         const formData = new FormData();
         formData.append("file", {
-          uri : Platform.OS === "ios" ? image?.replace("file://", "") : image,
+          uri : libImage,
           type: `image/${fileExt}`,
-          name: `new__GOOD.${fileExt}`,
+          name: Platform.OS === "ios" ? libImage?.replace("file://", "") : libImage,
         });
-         await GoodsApi.goodImage(formData, res._id);
+         await GoodsApi.goodImage("645f528aa69c741f1c7b9854",formData, );
       }
 
       if (cameraImage) {
-        const image = cameraImage;
-        const fileExt = image?.substring(image.lastIndexOf(".") + 1);
+        const fileExt = cameraImage?.substring(cameraImage.lastIndexOf(".") + 1);
         const formData = new FormData();
         formData.append("file", {
-          uri : Platform.OS === "ios" ? image?.replace("file://", "") : image,
+          uri : cameraImage,
           type: `image/${fileExt}`,
-          name: `new__GOOD.${fileExt}`,
+          name: Platform.OS === "ios" ? cameraImage?.replace("file://", "") : cameraImage,
         });
-        await GoodsApi.goodImage(formData, res._id);
+        await GoodsApi.goodImage(res._id,formData, );
       }
       mutate("/goods/user");
       navigation.goBack();
     } catch (err) {
       console.log(err);
+    } finally{
+      setLoading(false);
     }
   };
+  if(loading){
+    return <BigLoader/>;
+  }
   return (
     <KeyboardAvoidingView style={styles.root} {...(Platform.OS === "ios" && { behavior: "padding" })} keyboardVerticalOffset={height}>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>

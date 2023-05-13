@@ -41,11 +41,11 @@ const MyButton = memo(({ styleButton,title,textStyle, onPress,disabled,type }: P
     );
   }
     return (
-      <TouchableOpacity onPress={onPress} style={[{ ...styleButton },styles.container, ]}>
+      <TouchableOpacity disabled={disabled} onPress={onPress} style={[{ ...styleButton },styles.container, ]}   >
         {disabled ? 
-          <View>
-            <Text style={[styles.title, { ...textStyle }]}>{title}</Text>
-            <Entypo color={Colors.black} name="block" size={16}  />
+          <View style={styles.row}>
+            {/* <Text style={[styles.title, { ...textStyle }]}>{title}</Text> */}
+            <Entypo color={Colors.white} name="block" size={16}  />
           </View>
       :
           <Text style={[styles.title, { ...textStyle }]}>{title}</Text>
@@ -85,9 +85,14 @@ const styles = StyleSheet.create({
         borderColor    : Colors.primary
     },
     title: {
-        color: Colors.white
+        color     : Colors.white,
+        fontWeight: "500"
     },
     titleBlack: {
       color: Colors.black
+    },
+    row: {
+      flexDirection: "row",
+      alignItems   : "center"
     }
 });

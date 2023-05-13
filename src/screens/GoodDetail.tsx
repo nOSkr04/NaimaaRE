@@ -26,11 +26,13 @@ const GoodDetailScreen = memo(({ route }: Props) => {
     return res;
   });
   const renderItem = useCallback(({ item }: { item: any }) => {
+    
     return <GoodContainer item={item} />;
   }, []);
   const renderHeader = useCallback(() => {
     return <GoodHeader data={data} scrollA={scrollA} />;
   }, [data, scrollA]);
+  
   return (
     <Animated.FlatList
       ListHeaderComponent={renderHeader}

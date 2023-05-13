@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity,View } from "react-native";
+import { ScrollView,  Text, TouchableOpacity,View } from "react-native";
 import { Row, Table } from "react-native-table-component";
 import React, { memo } from "react";
 import { RootStackParamList } from "../../../navigation/types";
@@ -12,6 +12,7 @@ import { MyButton } from "../../../widgets/MyButton";
 import { format } from "date-fns";
 import { useNavigation } from "@react-navigation/native";
 import { Colors } from "../../../constants/Colors";
+import { TableStyle } from "../TableStyle";
 type Props = NativeStackScreenProps<RootStackParamList, "TransactionReport">;
 
 const TransactionReport = memo(({ route }: Props) => {
@@ -50,10 +51,10 @@ const TransactionReport = memo(({ route }: Props) => {
     return <Text>Гүйлгээний тайлан олдсонгүй </Text>;
   }
   return (
-    <View style={styles.container}>
+    <View style={TableStyle.container}>
       <ScrollView horizontal={true}>
         <View>
-          <Table borderStyle={styles.table}>
+          <Table borderStyle={TableStyle.table}>
             <Row
               data={[
                 `${format(new Date(date1), "yyyy-MM-dd")} наас ${format(new Date(date2), "yyyy-MM-dd")} гүйлгээ`,
@@ -61,15 +62,15 @@ const TransactionReport = memo(({ route }: Props) => {
                 //   endDate
                 // ).format("YYYY-MM-DD")} гүйлгээ`,
               ]}
-              style={styles.header1}
-              textStyle={styles.text}
+              style={TableStyle.header1}
+              textStyle={TableStyle.text}
               widthArr={[480]}
             />
-            <Row data={["", "Орлогын гүйлгээ", "Зарлагын гүйлгээ"]} style={styles.header1} textStyle={styles.text} widthArr={[100, 180, 200]} />
-            <Row data={header.tableHead} style={styles.header} textStyle={styles.text} widthArr={header.widthArr} />
+            <Row data={["", "Орлогын гүйлгээ", "Зарлагын гүйлгээ"]} style={TableStyle.header1} textStyle={TableStyle.text} widthArr={[100, 180, 200]} />
+            <Row data={header.tableHead} style={TableStyle.header} textStyle={TableStyle.text} widthArr={header.widthArr} />
           </Table>
-          <ScrollView style={styles.dataWrapper}>
-            <Table borderStyle={styles.table}>
+          <ScrollView style={TableStyle.dataWrapper}>
+            <Table borderStyle={TableStyle.table}>
               {data.map((rowData, index) => (
                 <TouchableOpacity
                   key={index}
@@ -80,8 +81,8 @@ const TransactionReport = memo(({ route }: Props) => {
                   }>
                   <Row
                     data={rowData}
-                    style={[styles.row, index % 2 && { backgroundColor: Colors.white }]}
-                    textStyle={styles.text}
+                    style={[TableStyle.row, index % 2 && { backgroundColor: Colors.white }]}
+                    textStyle={TableStyle.text}
                     widthArr={header.widthArr}
                   />
                 </TouchableOpacity>
@@ -90,9 +91,11 @@ const TransactionReport = memo(({ route }: Props) => {
           </ScrollView>
         </View>
       </ScrollView>
-      <MyButton onPress={printToFile} />
-      <View style={{ marginVertical: 5 }} />
-      <MyButton onPress={generateExcel} />
+      <MyButton  onPress={printToFile} styleButton={TableStyle.mh20} title="PDF лүү хөрвүүлэх"  />
+      <View style={TableStyle.mt5} />
+      <MyButton  onPress={generateExcel} styleButton={TableStyle.mh20} title="Excel лүү хөрвүүлэх"  type="secondary" />
+      <View style={TableStyle.mt5} />
+      <View style={TableStyle.mt5} />
     </View>
   );
 });
@@ -101,13 +104,4 @@ TransactionReport.displayName = "TransactionReport";
 
 export { TransactionReport };
 
-const styles = StyleSheet.create({
-  container  : { flex: 1, padding: 16, paddingTop: 30, backgroundColor: Colors.white },
-  header     : { height: 50, backgroundColor: Colors.fbColor },
-  text       : { textAlign: "center" },
-  text1      : { textAlign: "center", fontWeight: "800" },
-  dataWrapper: { marginTop: -1 },
-  row        : { height: 40, backgroundColor: Colors.smokeWhite },
-  header1    : { height: 50, backgroundColor: Colors.border },
-  table      : { borderWidth: 1, borderColor: "#C1C0B9" }
-});
+

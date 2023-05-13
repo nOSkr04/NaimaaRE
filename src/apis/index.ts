@@ -5,6 +5,7 @@ import * as TransactionsApi from "./Transactions";
 import * as IncomeApi from "./Income";
 import * as TemplateApi from "./Template";
 import * as ReportApi from "./Report";
+import * as PaymentApi from "./Payment";
 export {
     AuthApi,
     CategoryApi,
@@ -12,5 +13,6 @@ export {
     TransactionsApi,
     IncomeApi,
     TemplateApi,
-    ReportApi
+    ReportApi,
+    PaymentApi
 };

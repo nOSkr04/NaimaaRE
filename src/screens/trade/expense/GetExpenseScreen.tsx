@@ -25,35 +25,35 @@ const GetExpenseScreen = memo(() => {
   const [type, setType] = useState(1);
   const [isSave, setIsSave] = useState(false);
   const onSubmit = async (values: ILoanProps) => {
+    const createTemplateName = {
+      name: values.name,
+    };
     if (isSave) {
-      const createTemplateName = {
-        name: values.name,
-      };
-      try {
        await IncomeApi.saveTemplate(createTemplateName);
-      } catch (err) {
-        console.log(err);
-      } 
     }
     if (type === 1) {
       try {
         await IncomeApi.postDrain();
+      
       } catch (err) {
         console.log(err);
       } finally {
         mutate("/goods/user");
         mutate("/transactions/basket");
+        mutate("/templates");
         navigation.navigate("Root");
       }
     }
     if (type === 2) {
       try {
         await IncomeApi.postDrainOnLine();
+       
       } catch (err) {
         console.log(err);
       } finally {
         mutate("/goods/user");
         mutate("/transactions/basket");
+        mutate("/templates");
         navigation.navigate("Root");
       }
     }
@@ -72,6 +72,7 @@ const GetExpenseScreen = memo(() => {
       } finally {
         mutate("/goods/user");
         mutate("/transactions/basket");
+        mutate("/templates");
         navigation.navigate("Root");
       }
     }

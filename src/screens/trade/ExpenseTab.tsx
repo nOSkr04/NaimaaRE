@@ -11,6 +11,7 @@ import { BasketButton } from "../../components/tradeWidgets/BasketButton";
 import { IBasket } from "../../interface/IBasket";
 import { useSharedData } from "../../components/shared/SharedDataHook";
 import { useFilteredData } from "../../components/filtered/SharedDataHook";
+import { EmptyContainer } from "../../components/EmptyContainer";
 const ExpenseTab = memo(() => {
   const { setData } = useSharedData();
   const { data: cate } = useFilteredData();
@@ -36,6 +37,7 @@ const ExpenseTab = memo(() => {
   return (
     <>
       <FlatList
+      ListEmptyComponent={<EmptyContainer addGood title="Зарлага авах бараа байхгүй байна"  />}
       ListHeaderComponent={
         <>
           <FilterWidgets drain={true} search={search} setSearch = {setSearch}   />

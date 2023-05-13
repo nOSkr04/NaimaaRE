@@ -32,7 +32,9 @@ const GoodContainer = memo(({ item }: {item: ITransactions}) => {
     height : height.value * progress.value + 1,
     opacity: progress.value === 0 ? 0 : 1,
   }));
-
+ if(!item.type){
+  return null;
+ }
   return (
     <View style={styles.container}>
       <TouchableOpacity

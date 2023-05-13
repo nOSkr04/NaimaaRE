@@ -7,12 +7,14 @@ import { Colors } from "../../constants/Colors";
 import { formatDistanceToNowStrict } from "date-fns";
 import { mn } from "date-fns/locale";
 import { RowButton } from "../../widgets/RowButton";
-import { Entypo,  MaterialCommunityIcons } from "@expo/vector-icons";
+import { Entypo,  FontAwesome5,  MaterialCommunityIcons } from "@expo/vector-icons";
 import { AuthApi } from "../../apis";
 import { authLogout } from "../../store/authSlice";
 import * as Linking from "expo-linking";
+import { useNavigation } from "@react-navigation/native";
 const ProfileScreen = memo(() => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const { user } = useSelector((state: { auth: IAuth }) => state.auth);
   const logout = async () => {
     try {
@@ -43,7 +45,7 @@ const ProfileScreen = memo(() => {
         <View style={styles.mt8} /> */}
         <RowButton icon={<MaterialCommunityIcons color={Colors.black} name="logout" size={24} />} onPress={logout} title="Бүртгэлээс гарах" />
         <View style={styles.mt8} />
-        {/* <RowButton icon={<FontAwesome5 color={Colors.danger} name="user-alt-slash" size={20} />} title="Бүртгэл устгах" /> */}
+        <RowButton icon={<FontAwesome5 color={Colors.danger} name="user-alt-slash" size={20} />} onPress={() => navigation.navigate("DeleteAccountSheet", { id: user?._id || "" })} title="Бүртгэл устгах" />
       </View>
     </ScrollView>
   );

@@ -17,7 +17,6 @@ type Props = NativeStackScreenProps<RootStackParamList, "BoughtRemainder">;
 
 const BoughtRemainder = memo(({ route }: Props) => {
   const { data, date1, date2 } = route.params;
-  console.log(data, date1, date2 );
   const navigation = useNavigation();
   const header = {
     tableHead: [

@@ -24,7 +24,10 @@ export const editBasket = async ({ id, price, quantity }: { id: string; price: n
 };
 
 export const getUserTransactions = async ({ id } : {id: string}) => {
-  const res = await httpRequest.get(`/transactions/user?good=${id}&sort=-createdAt`);
+  const res = await httpRequest.get("/transactions/user", {
+    good: id,
+    sort: "-createdAt"
+  });
   return res.data;
 };
 

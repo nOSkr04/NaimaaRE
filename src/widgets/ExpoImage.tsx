@@ -2,6 +2,7 @@ import React, { memo, useCallback } from "react";
 import { Image, ImageContentFit } from "expo-image";
 import { logoBlurHash } from "../components/blurHash";
 import { Colors } from "../constants/Colors";
+import { photoUtil } from "../utils/photo";
 
 type Props = {
   uri?: string;
@@ -28,7 +29,7 @@ const ExpoImage = memo(({ uri, cacheUri,width, height,borderRadius,contentFit,ba
     <Image
       contentFit={contentFit ? contentFit : "cover"}
       placeholder={logoBlurHash}
-      source={uri ? `https://naimaaadmin.com/upload/${uri}` : cacheUri ? cacheUri : require("../assets/logo.png")}
+      source={uri ? photoUtil(uri): cacheUri ? cacheUri : require("../assets/logo.png")}
       style={imageStyle()}
       transition={1000}
     />

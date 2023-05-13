@@ -2,7 +2,7 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-nativ
 import React, { memo, useState } from "react";
 import Entypo from "@expo/vector-icons/Entypo";
 import { Colors } from "../../constants/Colors";
-import { Control, Controller, FieldErrors } from "react-hook-form";
+import { Control, Controller, FieldErrors, UseFormClearErrors } from "react-hook-form";
 import { ErrorText } from "../ErrorText";
 
 export type ILoginData = {
@@ -16,9 +16,10 @@ type Props = {
     phone: string;
     password: string;
   }>;
+  clearErrors: UseFormClearErrors<ILoginData>;
 };
 
-const LoginForm = memo(({ control, errors }: Props) => {
+  const LoginForm = memo(({ control, errors,clearErrors }: Props) => {
   const [isSecure, setIsSecure] = useState(true);
   return (
     <View style={styles.formContainer}>
@@ -30,9 +31,9 @@ const LoginForm = memo(({ control, errors }: Props) => {
           <TextInput
             keyboardType={"number-pad"}
             onBlur={onBlur}
-            onChangeText={value => onChange(value)}
+            onChangeText={value => {onChange(value); clearErrors("phone");}}
             placeholder="Утасны дугаар"
-            placeholderTextColor={Colors.black}
+            placeholderTextColor={errors.phone ? Colors.danger : Colors.black}
             style={styles.input}
             value={value}
           />
@@ -48,16 +49,15 @@ const LoginForm = memo(({ control, errors }: Props) => {
           <View style={styles.passwordContainer}>
             <TextInput
               onBlur={onBlur}
-              onChangeText={value => onChange(value)}
+              onChangeText={value => {onChange(value); clearErrors("password");}}
               placeholder="Нууц үг"
-              placeholderTextColor={Colors.black}
+              placeholderTextColor={errors.password ? Colors.danger : Colors.black}
               secureTextEntry={isSecure}
               style={styles.input}
               value={value}
-            
             />
             <TouchableOpacity onPress={() => setIsSecure(!isSecure)} style={styles.iconContainer}>
-              <Entypo color={"black"} name={!isSecure ? "eye" : "eye-with-line"} size={24} />
+              <Entypo  color={errors.password ? Colors.danger : Colors.black} name={!isSecure ? "eye" : "eye-with-line"} size={24} />
             </TouchableOpacity>
           </View>
         )}
@@ -89,9 +89,10 @@ const styles = StyleSheet.create({
     marginBottom: 6
   },
   border: {
-    borderWidth : 1.5,
-    borderColor : Colors.primary,
-    marginBottom: 18
+    backgroundColor: Colors.primary,
+    marginBottom   : 18,
+    height         : 4,
+    marginTop      : 4
   },
   iconContainer: {
     position: "absolute",
@@ -104,6 +105,6 @@ const styles = StyleSheet.create({
     marginTop    : 10,
   },
   danger: {
-    borderColor: Colors.danger
+    backgroundColor: Colors.danger
   }
 });

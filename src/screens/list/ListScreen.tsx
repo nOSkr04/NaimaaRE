@@ -10,6 +10,7 @@ import { BasketButton } from "../../components/tradeWidgets/BasketButton";
 import { IBasket } from "../../interface/IBasket";
 import { useSharedData } from "../../components/shared/SharedDataHook";
 import { useFilteredData } from "../../components/filtered/SharedDataHook";
+import { EmptyContainer } from "../../components/EmptyContainer";
 const ListScreen = memo(() => {
   const { setData } = useSharedData();
   const { data: cate } = useFilteredData();
@@ -34,6 +35,7 @@ const ListScreen = memo(() => {
   return (
     <>
       <FlatList
+      ListEmptyComponent={<EmptyContainer addGood title="Танд бүртгүүлсэн бараа байхгүй байна"  />}
       ListHeaderComponent={
         <>
           <TableHeader />

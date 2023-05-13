@@ -2,7 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   listTabOption,
-  //  packageTabOption,
+   packageTabOption,
   profileScreenOption,
   reportTabOption,
   tradeTabOption,
@@ -13,7 +13,7 @@ import { ReportScreen } from "../screens/report/ReportScreen";
 
 import { ProfileScreen } from "../screens/profile/ProfileScreen";
 import { RootTabParamList } from "./types";
-// import { PackageScreen } from "../screens/package/PackageScreen";
+import { PackageScreen } from "../screens/package/PackageScreen";
 import { Colors } from "../constants/Colors";
 import { StyleSheet } from "react-native";
 
@@ -31,7 +31,7 @@ const BottomTabNavigator = () => {
       <BottomTab.Screen component={TradeScreen} name="TradeScreen" options={tradeTabOption} />
       <BottomTab.Screen component={ListScreen} name="ListScreen" options={listTabOption} />
       <BottomTab.Screen component={ReportScreen} name="ReportScreen" options={reportTabOption} />
-      {/* <BottomTab.Screen component={PackageScreen} name="PackageScreen" options={packageTabOption} /> */}
+      <BottomTab.Screen component={PackageScreen} name="PackageScreen" options={packageTabOption} />
       <BottomTab.Screen component={ProfileScreen} name="ProfileScreen" options={profileScreenOption} />
     </BottomTab.Navigator>
   );

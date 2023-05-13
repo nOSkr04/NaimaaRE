@@ -4,7 +4,6 @@ import { Bill } from "../../screens/report/BillDetailScreen";
 import { ExpoImage } from "../../widgets/ExpoImage";
 
 const BillContainer = memo(({ item }: {item: Bill}) => {
-  console.log(item);
     return (
       <View style={styles.container}>
         <ExpoImage borderRadius={10} height={120} uri={item.good.photo} width={120}  />
